@@ -31,7 +31,7 @@ eventHandlers[constants.events.NEW_SESSION] = function(){
 	this.emit(constants.speeches.WELCOME_SPEECH);
 };
 
-/** fetches tongue twister */
+/** saves current order to database */
 eventHandlers[constants.events.SAVE_ORDER] = function(){
 	console.info('Event handler ' + constants.events.NEW_TWISTER + ' for ' + this.event.session.sessionId + ' State: ' + this.handler.state);
 	
@@ -66,9 +66,7 @@ eventHandlers[constants.events.SAVE_ORDER] = function(){
 	getTwister(this);
 };
 
-/** validates attempt. 
- * if correct, goes to continue mode to see if user wants to continue. 
- * if incorrect, goes to repeat mode to see if user wants to try again */
+/** cancels current order i.e. doesn't save to database */
 eventHandlers[constants.events.CANCEL_ORDER] = function(){
 	console.info('Event handler ' + constants.events.VALIDATE_ATTEMPT + ' for ' + this.event.session.sessionId + ' State: ' + this.handler.state);
 	if(!this.handler.state){
@@ -127,8 +125,10 @@ eventHandlers[constants.events.CANCEL_ORDER] = function(){
 	}
 };
 
-/** explains game in depth and gives twister */
-eventHandlers[constants.events.HELP_TWISTER] = function(){
+/** adds product to order, 
+ * changes state to ADD_QUANTITY_MODE if not provided
+ * changes state to ADD_PRODUCT_MODE if not provided */
+eventHandlers[constants.events.ADD_PRODUCT] = function(){
 	console.info('Event handler ' + constants.events.HELP_TWISTER + ' for ' + this.event.session.sessionId + ' State: ' + this.handler.state);
 	
 	if(this.handler.state){

@@ -28,22 +28,20 @@ module.exports = Object.freeze({
 	events: {
 		NEW_SESSION: 'newSession',
 		SAVE_ORDER: 'saveOrder',
-		CANCEL_ORDER: 'cancelOrder'
+		CANCEL_ORDER: 'cancelOrder',
+		ADD_PRODUCT: 'addProduct'
 	},
 	
 	speeches: {
 		WELCOME_SPEECH: 'welcomeSpeech',
-		SAY_TWISTER_SPEECH: 'sayTwisterSpeech',
-		CORRECT_SPEECH: 'correctSpeech',
-		INCORRECT_SPEECH: 'incorrectSpeech',
+		REPEAT_ORDER_SPEECH: 'repeatOrderSpeech',
+		FINISH_ORDER_SPEECH: 'finishOrderSpeech',
+		CANCEL_ORDER_SPEECH: 'cancelOrderSpeech',
 		REPEAT_SPEECH: 'repeatSpeech',
-		RETRY_SPEECH: 'retrySpeech',
 		HELP_SPEECH: 'helpSpeech',
-		CONTINUE_SPEECH: 'continueSpeech',
 		GOODBYE_SPEECH: 'goodbyeSpeech',
 		UNHANDLED_SPEECH: 'unhandledSpeech',
-		FATAL_SPEECH: 'fatalSpeech',
-		WIN_SPEECH: 'winSpeech'
+		FATAL_SPEECH: 'fatalSpeech'
 	},
 	
 	speechOutputs: {

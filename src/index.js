@@ -12,9 +12,9 @@
 const Alexa = require('alexa-sdk');
 const config = require('./configuration');
 const statelessHandlers = require('./statelessHandlers');
-/*const eventHandlers = require('./eventHandlers');
+const eventHandlers = require('./eventHandlers');
 const speechHandlers = require('./speechHandlers');
-const constants = require('./constants');*/
+/*const constants = require('./constants');*/
 
 /** Alexa skill handler */
 exports.handler = function(event, context, callback){
@@ -23,9 +23,9 @@ exports.handler = function(event, context, callback){
     alexa.appId = config.appId;
     
     alexa.registerHandlers(
-    	statelessHandlers//, 
-    	/*eventHandlers,
-    	speechHandlers*/
+    	statelessHandlers, 
+    	eventHandlers.statelessHandlers,
+    	speechHandlers.statelessHandlers
     );
     alexa.execute();
 };
