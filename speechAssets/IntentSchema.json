@@ -1,0 +1,44 @@
+{
+  "intents": [
+    {
+      "intent": "OrderProductIntent",
+      "slots": [
+        {
+          "name": "Product",
+          "type": "PRODUCTS"
+        }
+      ]
+    },
+    {
+      "intent": "OrderProductWithQuantityIntent",
+      "slots": [
+        {
+          "name": "Product",
+          "type": "PRODUCTS"
+        },
+        {
+          "name": "Quantity",
+          "type": "AMAZON.NUMBER"
+        }
+      ]
+    },
+    {
+      "intent": "OrderQuantityIntent",
+      "slots": [
+        {
+          "name": "Quantity",
+          "type": "AMAZON.NUMBER"
+        }
+      ]
+    },
+    {"intent": "RepeatOrderIntent"},
+    {"intent": "FinishOrderIntent"},
+    {"intent": "CancelOrderIntent"},
+    {"intent": "AMAZON.YesIntent"},
+    {"intent": "AMAZON.NoIntent"},
+    {"intent": "AMAZON.RepeatIntent"},
+    {"intent": "AMAZON.HelpIntent"},
+    {"intent": "AMAZON.StopIntent"},
+    {"intent": "AMAZON.CancelIntent"}
+  ]
+}
