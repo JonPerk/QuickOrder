@@ -29,7 +29,8 @@ module.exports = Object.freeze({
 		SAVE_ORDER: 'saveOrder',
 		CANCEL_ORDER: 'cancelOrder',
 		CONTINUE_ORDER: 'continueOrder',
-		ADD_PRODUCT: 'addProduct'
+		ADD_PRODUCT: 'addProduct',
+		CANCEL_EVENT: 'cancelEvent'
 	},
 	
 	speeches: {
@@ -44,6 +45,8 @@ module.exports = Object.freeze({
 		UNHANDLED_SPEECH: 'unhandledSpeech',
 		FATAL_SPEECH: 'fatalSpeech',
 		ORDER_SAVED_SPEECH: 'orderSavedSpeech',
+		ORDER_CANCELLED_SPEECH: 'orderCancelledSpeech',
+		PRODUCT_REMOVED_SPEECH: 'productRemovedSpeech',
 		NO_PRODUCTS_SPEECH: 'noProductsSpeech',
 		ERROR_SPEECH: 'errorSpeech'
 	},

@@ -85,9 +85,24 @@ speechHandlers[constants.speeches.ORDER_SAVED_SPEECH] = function(){
 			constants.cards.WIN_CARD);
 }
 
+/** notifies user of cancelled order and exits */
+speechHandlers[constants.speeches.ORDER_CANCELLED_SPEECH] = function(){
+	console.log('Speech handler ' + constants.speeches.ORDER_CANCELLED_SPEECH + ' called for ' + this.event.session.sessionId + " context " + JSON.stringify(this));
+	
+};
+
 /** gives warning when user tries to save with no products on order and continues */
 speechHandlers[constants.speeches.NO_PRODUCTS_SPEECH] = function(){
 	console.log('Speech handler ' + constants.speeches.NO_PRODUCTS_SPEECH + ' called for ' + this.event.session.sessionId + " session ending");
+	this.emit(":tellWithCard", 
+			constants.speechOutputs.WIN_SPEECH, 
+			constants.cardTitles.YOU_WIN,
+			constants.cards.WIN_CARD);
+};
+
+/** informs user that a product was removed from the order */
+speechHandlers[constants.speeches.PRODUCT_REMOVED_SPEECH] = function(){
+	console.log('Speech handler ' + constants.speeches.PRODUCT_REMOVED_SPEECH + ' called for ' + this.event.session.sessionId + " session ending");
 	this.emit(":tellWithCard", 
 			constants.speechOutputs.WIN_SPEECH, 
 			constants.cardTitles.YOU_WIN,

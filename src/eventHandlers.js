@@ -70,62 +70,30 @@ eventHandlers[constants.events.SAVE_ORDER] = function(){
 	save(this);
 };
 
+/** determines if user wishes to cancel the currentProduct or entire order */
+eventHandlers[constants.events.CANCEL_EVENT] = function(){
+	console.info('Event handler ' + constants.events.CANCEL_EVENT + ' for ' + this.event.session.sessionId + ' State: ' + this.handler.state);
+	if(this.handler.state){
+		this.emitWithState(constants.speeches.UNHANDLED_SPEECH);
+	}
+	
+	if(this.attributes.currentProduct){
+		this.attributes.currentProduct = null;
+		this.emit(constants.speeches.PRODUCT_REMOVED_SPEECH);
+	} else {
+		this.emit(constants.speeches.CANCEL_ORDER_SPEECH);
+	}
+}
+
 /** cancels current order i.e. doesn't save to database */
 eventHandlers[constants.events.CANCEL_ORDER] = function(){
-	console.info('Event handler ' + constants.events.VALIDATE_ATTEMPT + ' for ' + this.event.session.sessionId + ' State: ' + this.handler.state);
+	console.info('Event handler ' + constants.events.CANCEL_ORDER + ' for ' + this.event.session.sessionId + ' State: ' + this.handler.state);
+	this.attributes.currentProduct = null;
+	this.attributes.order = null;
 	if(!this.handler.state){
-		console.warn('WARNING Event handler ' + constants.events.VALIDATE_ATTEMPT + ' state mismatch for ' + this.event.session.sessionId + ' Expected state: _GAME_MODE Actual State: ' + this.handler.state);
-		this.emit(constants.intents.UNHANDLED_INTENT);
-		return;
-	}
-	if(this.handler.state !== constants.states.GAME_MODE){
-		console.warn('WARNING Event handler ' + constants.events.VALIDATE_ATTEMPT + ' state mismatch for ' + this.event.session.sessionId + ' Expected state: _GAME_MODE Actual State: ' + this.handler.state);
-		this.emitWithState(constants.intents.UNHANDLED_INTENT);
-		return;
-	}
-	if(!this.attributes.twister || !this.attributes.twister.value || (!this.attributes.twister.total && this.attributes.twister.total != 0)){
-		console.error('ERROR Event handler ' + constants.events.VALIDATE_ATTEMPT + ' missing expected twister for ' + this.event.session.sessionId);
-		this.emitWithState(constants.speeches.FATAL_SPEECH);
-		return;
-	}
-	if(!this.event.request.intent.slots || !this.event.request.intent.slots.Twister || !this.event.request.intent.slots.Twister.value){
-		this.handler.state = constants.states.REPEAT_MODE;
-		this.emitWithState(constants.speeches.INCORRECT_SPEECH);
-		return;
-	}
-	
-	let expected = this.attributes.twister.value.replace(/[^a-zA-z0-9]/g, "").toLowerCase();
-	let attempt = this.event.request.intent.slots.Twister.value.replace(/[^a-zA-z0-9]/g, "").toLowerCase();
-	
-	//debug
-	//console.info("Expected: " + expected + " Actual attempt: " + attempt + " Match? " + (attempt === expected));
-	if(attempt === expected){
-		this.attributes.score++;
-		
-		if(this.attributes.score >= this.attributes.twister.total){
-			this.emitWithState(constants.speeches.WIN_SPEECH);
-		} else {
-			if(!this.attributes.completed){
-				this.attributes.completed = [];
-			}
-			if(!this.attributes.skipped){
-				this.attributes.skipped = [];
-			}
-			let index = this.attributes.skipped.indexOf(this.attributes.twister.index);
-			
-			if(index > -1){
-				this.attributes.skipped.splice(index,1);
-			}
-			
-			this.attributes.completed.push(this.attributes.twister.index);
-			this.handler.state = constants.states.CONTINUE_MODE;
-			this.attributes.twister = null;
-			this.emitWithState(constants.speeches.CORRECT_SPEECH);
-		}
+		this.emit(constants.speeches.ORDER_CANCELLED_SPEECH);
 	} else {
-		this.attributes.attempt = this.event.request.intent.slots.Twister.value;
-		this.handler.state = constants.states.REPEAT_MODE;
-		this.emitWithState(constants.speeches.INCORRECT_SPEECH);
+		this.emitWithState(constants.speeches.ORDER_CANCELLED_SPEECH);
 	}
 };
 
@@ -133,6 +101,8 @@ eventHandlers[constants.events.CANCEL_ORDER] = function(){
 /** resets state and allow user to continue with order */
 eventHandlers[constants.events.CONTINUE_ORDER] = function(){
 	console.info('Event handler ' + constants.events.CONTINUE_ORDER + ' for ' + this.event.session.sessionId + ' State: ' + this.handler.state);
+	this.handler.state = null;
+	this.emit(constants.speeches.CONTINUE_ORDER_SPEECH);
 }
 
 /** adds product to order, 

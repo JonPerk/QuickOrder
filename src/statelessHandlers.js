@@ -89,13 +89,13 @@ statelessHandlers[constants.intents.HELP_INTENT] = function(){
 /** stateless handler for stop intent. Puts order to CANCEL_MODE state. Asks for confirmation */
 statelessHandlers[constants.intents.STOP_INTENT] = function(){
 	console.info('Intent handler ' + constants.intents.STOP_INTENT + ' for ' + this.event.session.sessionId + ' State: ' + this.handler.state);
-	this.emit(constants.speeches.CANCEL_ORDER_SPEECH);
+	this.emit(constants.events.CANCEL_EVENT);
 };
 
 /** stateless handler for cancel intent. Puts order to CANCEL_MODE state. Asks for confirmation */
 statelessHandlers[constants.intents.CANCEL_INTENT] = function(){
 	console.info('Intent handler ' + constants.intents.STOP_INTENT + ' for ' + this.event.session.sessionId + ' State: ' + this.handler.state);
-	this.emit(constants.speeches.CANCEL_ORDER_SPEECH);
+	this.emit(constants.events.CANCEL_EVENT);
 };
 
 /** stateless handler for unexpected prompts from user */

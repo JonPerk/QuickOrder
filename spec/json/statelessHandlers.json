@@ -326,8 +326,8 @@
 				  },
 				  "version": "1.0"
 		},
-		"responseHandlerType": "speech",
-		"response": "cancelOrderSpeech"
+		"responseHandlerType": "event",
+		"response": "cancelEvent"
 	},
 	"testCancelIntent": {
 		"requestName": "AMAZON.CancelIntent",
@@ -354,8 +354,8 @@
 				  },
 				  "version": "1.0"
 		},
-		"responseHandlerType": "speech",
-		"response": "cancelOrderSpeech"
+		"responseHandlerType": "event",
+		"response": "cancelEvent"
 	},
 	"testUnhandledIntent": {
 		"requestName": "Unhandled",

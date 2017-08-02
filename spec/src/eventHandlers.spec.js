@@ -47,27 +47,31 @@ describe('eventHandlers', function() {
 	it('testSaveOrderBackendFail', function(done) {
 		execute('testSaveOrderBackendFail').then(function(resp){if(resp){done();}else{done();}});
     });
-	/*
-	it('testYesIntent', function(done) {
-		execute('testYesIntent', 'cancelOrder', false).then(function(resp){if(resp){done();}else{done();}});
+	
+	it('testCancelOrderStateless', function(done) {
+		execute('testCancelOrderStateless').then(function(resp){if(resp){done();}else{done();}});
     });
 	
-	it('testNoIntent', function(done) {
-		execute('testNoIntent', 'continueOrder', false).then(function(resp){if(resp){done();}else{done();}});
+	it('testCancelOrder', function(done) {
+		execute('testCancelOrder').then(function(resp){if(resp){done();}else{done();}});
     });
 	
-	it('testHelpIntent', function(done) {
-		execute('testHelpIntent', 'helpSpeech', true).then(function(resp){if(resp){done();}else{done();}});
+	it('testCancelEventWithProduct', function(done) {
+		execute('testCancelEventWithProduct').then(function(resp){if(resp){done();}else{done();}});
     });
 	
-	it('testStopIntent', function(done) {
-		execute('testStopIntent', 'continueOrder', true).then(function(resp){if(resp){done();}else{done();}});
+	it('testCancelEventNoProduct', function(done) {
+		execute('testCancelEventNoProduct').then(function(resp){if(resp){done();}else{done();}});
     });
 	
-	it('testCancelIntent', function(done) {
-		execute('testCancelIntent', 'continueOrder', true).then(function(resp){if(resp){done();}else{done();}});
+	it('testCancelEventWithState', function(done) {
+		execute('testCancelEventWithState').then(function(resp){if(resp){done();}else{done();}});
     });
-	*/
+	
+	it('testContinueOrder', function(done) {
+		execute('testContinueOrder').then(function(resp){if(resp){done();}else{done();}});
+    });
+	
 	function execute(testName){
 		return new Promise(function(resolve, reject){
 			let test = tests[testName];
@@ -105,7 +109,7 @@ describe('eventHandlers', function() {
 					if(test.resolvePromise){
 						resolve();
 					} else {
-						reject({'error': 'Error retrieving twister'});
+						reject({'error': 'Error on de backend'});
 					}
 				})
 			});
@@ -183,6 +187,8 @@ describe('eventHandlers', function() {
 		response.state = context.handler.state;
 		if(context.attributes.order)
 			response.order = context.attributes.order;
+		if(context.attributes.currentProduct)
+			response.currentProduct = context.attributes.currentProduct;
 		callback.succeed(response); 
 	}
     

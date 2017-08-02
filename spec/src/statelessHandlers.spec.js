@@ -57,11 +57,11 @@ describe('statelessHandlers', function() {
     });
 	
 	it('testStopIntent', function(done) {
-		execute('testStopIntent', 'cancelOrderSpeech', true).then(function(resp){if(resp){done();}else{done();}});
+		execute('testStopIntent', 'cancelEvent', true).then(function(resp){if(resp){done();}else{done();}});
     });
 	
 	it('testCancelIntent', function(done) {
-		execute('testCancelIntent', 'cancelOrderSpeech', true).then(function(resp){if(resp){done();}else{done();}});
+		execute('testCancelIntent', 'cancelEvent', true).then(function(resp){if(resp){done();}else{done();}});
     });
 	
 	it('testUnhandledIntent', function(done) {
