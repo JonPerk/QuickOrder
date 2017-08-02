@@ -102,3 +102,33 @@ OrderQuantityIntent place {Quantity} packages on my order
 OrderQuantityIntent add {Quantity} packages
 OrderQuantityIntent add {Quantity} packages on my order
 OrderQuantityIntent add {Quantity} packages to my order
+RepeatOrderIntent repeat my order
+RepeatOrderIntent what's in my order
+RepeatOrderIntent tell me my order
+RepeatOrderIntent list the items in my order
+RepeatOrderIntent list the products in my order
+RepeatOrderIntent give me my order
+RepeatOrderIntent repeat the order
+RepeatOrderIntent what's in the order
+RepeatOrderIntent tell me the order
+RepeatOrderIntent list the items in the order
+RepeatOrderIntent list the products in the order
+RepeatOrderIntent give me the order
+FinishOrderIntent finish the order
+FinishOrderIntent complete the order
+FinishOrderIntent save the order
+FinishOrderIntent submit the order
+FinishOrderIntent finish my order
+FinishOrderIntent complete my order
+FinishOrderIntent save my order
+FinishOrderIntent submit my order
+CancelOrderIntent cancel the order
+CancelOrderIntent discard the order
+CancelOrderIntent remove the order
+CancelOrderIntent delete the order
+CancelOrderIntent stop the order
+CancelOrderIntent cancel my order
+CancelOrderIntent discard my order
+CancelOrderIntent remove my order
+CancelOrderIntent stop my order
+CancelOrderIntent delete my order

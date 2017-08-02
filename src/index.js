@@ -16,6 +16,7 @@ const eventHandlers = require('./eventHandlers');
 const speechHandlers = require('./speechHandlers');
 const finishModeHandlers = require('./finishModeHandlers');
 const cancelModeHandlers = require('./cancelModeHandlers');
+const repeatModeHandlers = require('./repeatModeHandlers');
 /*const constants = require('./constants');*/
 
 /** Alexa skill handler */
@@ -28,6 +29,7 @@ exports.handler = function(event, context, callback){
     	statelessHandlers, 
     	finishModeHandlers,
     	cancelModeHandlers,
+    	repeatModeHandlers,
     	eventHandlers.statelessHandlers,
     	eventHandlers.finishModeHandlers,
     	eventHandlers.cancelModeHandlers,

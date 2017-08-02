@@ -139,6 +139,7 @@ eventHandlers[constants.events.ADD_PRODUCT] = function(){
 			let productSearch = function(context, productName){
 				dbHelper.getProduct(productName)
 				.then(function(product){
+					console.info('product returned from database ' + JSON.stringify(product, null, 2));
 					context.attributes.currentProduct = product;
 					context.emit(constants.speeches.PRODUCT_STARTED_SPEECH);
 				})
@@ -154,6 +155,13 @@ eventHandlers[constants.events.ADD_PRODUCT] = function(){
 				dbHelper.getProduct(productName)
 				.then(function(product){
 					product.quantity = quantity;
+					if(!context.attributes.order){
+						context.attributes.order = {};
+						context.attributes.order.number = uuidHelper.getUUID();
+					}
+					if(!context.attributes.order.products){
+						context.attributes.order.products = [];
+					}
 					context.attributes.order.products.push(product);
 					context.attributes.currentProduct = null;
 					context.emit(constants.speeches.PRODUCT_ADDED_SPEECH);
@@ -203,8 +211,58 @@ eventHandlers[constants.events.ADD_PRODUCT] = function(){
 	}
 };
 
+eventHandlers[constants.events.REPEAT_ORDER] = function(){
+	console.info('Event handler ' + constants.events.REPEAT_ORDER + ' for ' + this.event.session.sessionId + ' State: ' + this.handler.state);
+	if(this.handler.state && this.handler.state != constants.states.REPEAT_MODE){
+		this.emitWithState(constants.intents.UNHANDLED_INTENT);
+		return;
+	}
+	this.attributes.repeatOrderSpeech = null;
+	this.attributes.repeatOrderText = null;
+	if(!this.attributes.order || !this.attributes.order.products || this.attributes.order.products.length < 1){
+		this.emit(constants.speeches.NO_PRODUCTS_SPEECH);
+	} else {
+		let outputSpeech = '';
+		let displayText = '';
+		if(this.attributes.order.products.length <= 3){
+			this.attributes.order.products.forEach(function(product){
+				outputSpeech = outputSpeech + ' ' + product.quantity + ' cases of ' + product.name; 
+				displayText = displayText + product.quantity + ' cases of ' + product.name + '\n';
+			});
+			this.attributes.repeatOrderSpeech = outputSpeech;
+			this.emit(constants.speeches.REPEAT_ORDER_SPEECH);
+		} else {
+			this.handler.state = constants.states.REPEAT_MODE;
+			let lastIndex = this.attributes.lastIndex;
+			if(!lastIndex){
+				lastIndex = 0;
+			}
+			let finalIndex = lastIndex + 3;
+			if(finalIndex > this.attributes.order.products.length){
+				finalIndex = this.attributes.order.products.length;
+				this.handler.state = null;
+				this.attributes.lastIndex = null;
+			} else {
+				this.attributes.lastIndex = finalIndex;
+			}
+			for(let i = lastIndex; i < finalIndex; i++){
+				outputSpeech = outputSpeech + ' ' + this.attributes.order.products[i].quantity + ' cases of ' + this.attributes.order.products[i].name;
+			}
+			this.attributes.repeatOrderSpeech = outputSpeech;
+			this.attributes.repeatOrderText = displayText;
+			if(this.attributes.lastIndex){
+				this.emitWithState(constants.speeches.REPEAT_ORDER_MULTI_SPEECH);
+			} else {
+				this.emit(constants.speeches.REPEAT_ORDER_SPEECH);
+			}
+		}
+		
+	}
+}
+
 let finishMode = Object.assign({}, eventHandlers);
 let cancelMode = Object.assign({}, eventHandlers);
+let repeatMode = Object.assign({}, eventHandlers);
  
 module.exports = {
 	statelessHandlers : eventHandlers,

@@ -17,213 +17,270 @@ var speechHandlers = {};
 /** welcome speech handler, asks user for products */
 speechHandlers[constants.speeches.WELCOME_SPEECH] = function(){
 	console.info('Speech handler ' + constants.speeches.WELCOME_SPEECH + ' for ' + this.event.session.sessionId + ' State: ' + this.handler.state);
-	this.emit(":askWithCard", 
-			constants.speechOutputs.WELCOME_SPEECH + this.attributes.twister.value, 
-			constants.reprompts.REPEAT_TWISTER_SPEECH + this.attributes.twister.value,
-			constants.cardTitles.LETS_PLAY,
-			constants.cards.WELCOME_CARD + this.attributes.twister.value);
+	this.attributes.speechOutput = constants.speechOutputs.WELCOME_SPEECH;
+    this.attributes.repromptSpeech = constants.reprompts.WELCOME_SPEECH;
+	this.emit(
+		':askWithCard', 
+		this.attributes.speechOutput, 
+		this.attributes.repromptSpeech,
+		constants.cardTitles.WELCOME_CARD,
+		constants.cards.WELCOME_CARD
+	);
 };
 
 /** repeats current order */
 speechHandlers[constants.speeches.REPEAT_ORDER_SPEECH] = function(){
 	console.info('Speech handler ' + constants.speeches.REPEAT_ORDER_SPEECH + ' for ' + this.event.session.sessionId + ' State: ' + this.handler.state);
-	
+	this.attributes.speechOutput = constants.speechOutputs.REPEAT_ORDER_SPEECH;
+	this.attributes.speechOutput = this.attributes.speechOutput.replace('%s', this.attributes.repeatOrderSpeech);
+    this.attributes.repromptSpeech = constants.reprompts.REPEAT_ORDER_SPEECH;
+    this.attributes.repromptSpeech = this.attributes.repromptSpeech.replace('%s', this.attributes.repeatOrderSpeech);
+	this.emit(
+		':askWithCard',
+		this.attributes.speechOutput,
+		this.attributes.repromptSpeech,
+		constants.cardTitles.REPEAT_ORDER,
+		this.attributes.repeatOrderText
+	);
+};
+
+/** repeats current order if user has more than 3 products in order */
+speechHandlers[constants.speeches.REPEAT_ORDER_MULTI_SPEECH] = function(){
+	console.info('Speech handler ' + constants.speeches.REPEAT_ORDER_MULTI_SPEECH + ' for ' + this.event.session.sessionId + ' State: ' + this.handler.state);
+	this.attributes.speechOutput = constants.speechOutputs.REPEAT_ORDER_MULTI_SPEECH;
+	this.attributes.speechOutput = this.attributes.speechOutput.replace('%s', this.attributes.repeatOrderSpeech);
+    this.attributes.repromptSpeech = constants.reprompts.REPEAT_ORDER_MULTI_SPEECH;
+    this.attributes.repromptSpeech = this.attributes.repromptSpeech.replace('%s', this.attributes.repeatOrderSpeech);
+    this.emitWithState(
+		':askWithCard',
+		this.attributes.speechOutput,
+		this.attributes.repromptSpeech,
+		constants.cardTitles.REPEAT_ORDER,
+		this.attributes.repeatOrderText
+	);
+};
+
+/** repeats current order */
+speechHandlers[constants.speeches.NO_PRODUCTS_SPEECH] = function(){
+	console.info('Speech handler ' + constants.speeches.NO_PRODUCTS_SPEECH + ' for ' + this.event.session.sessionId + ' State: ' + this.handler.state);
+	this.attributes.speechOutput = constants.speechOutputs.NO_PRODUCTS_SPEECH;
+    this.attributes.repromptSpeech = constants.reprompts.NO_PRODUCTS_SPEECH;
+	this.emit(
+		':ask',
+		this.attributes.speechOutput,
+		this.attributes.repromptSpeech
+	);
+};
+
+/** repeats whatever was said last */
+speechHandlers[constants.speeches.REPEAT_SPEECH] = function(){
+	console.info('Speech handler ' + constants.speeches.REPEAT_SPEECH + ' for ' + this.event.session.sessionId + ' State: ' + this.handler.state);
+	this.emit(
+		':ask',
+		this.attributes.speechOutput,
+		this.attributes.repromptSpeech
+	);
 };
 
 /** asks if user wants to finish order */
 speechHandlers[constants.speeches.FINISH_ORDER_SPEECH] = function(){
 	console.info('Speech handler ' + constants.speeches.FINISH_ORDER_SPEECH + ' for ' + this.event.session.sessionId + ' State: ' + this.handler.state);
-	
-			
+	this.attributes.speechOutput = constants.speechOutputs.FINISH_ORDER_SPEECH;
+	this.attributes.repromptSpeech = constants.reprompts.FINISH_ORDER_SPEECH;
+	this.emit(
+		':ask',
+		this.attributes.speechOutput,
+		this.attributes.repromptSpeech
+	);
 };
 
 /** incorrect speech handler. informs user and asks if they want to try again */
 speechHandlers[constants.speeches.CANCEL_ORDER_SPEECH] = function(){
-	console.info('Speech handler ' + constants.speeches.INCORRECT_SPEECH + ' for ' + this.event.session.sessionId + ' State: ' + this.handler.state);
-	
+	console.info('Speech handler ' + constants.speeches.CANCEL_ORDER_SPEECH + ' for ' + this.event.session.sessionId + ' State: ' + this.handler.state);
+	this.attributes.speechOutput = constants.speechOutputs.CANCEL_ORDER_SPEECH;
+	this.attributes.repromptSpeech = constants.reprompts.CANCEL_ORDER_SPEECH;
+	this.emit(
+		':ask',
+		this.attributes.speechOutput,
+		this.attributes.repromptSpeech
+	);
 };
 
 /** tells user they can continue with their order */
 speechHandlers[constants.speeches.CONTINUE_ORDER_SPEECH] = function(){
 	console.info('Speech handler ' + constants.speeches.CONTINUE_ORDER_SPEECH + ' for ' + this.event.session.sessionId + ' State: ' + this.handler.state);
-	
-	if(this.handler.state !== constants.states.CONTINUE_MODE){
-		console.warn('WARNING Speech handler ' + constants.speeches.CONTINUE_SPEECH + ' state mismatch for ' + this.event.session.sessionId + 
-				' Expected state: ' + constants.states.CONTINUE_MODE + ' Actual State: ' + this.handler.state);
-		this.emitWithState(constants.intents.UNHANDLED_INTENT);
-	} else {
-		this.emit(":ask", 
-				constants.speechOutputs.CONTINUE_SPEECH, 
-				constants.reprompts.CONTINUE_SPEECH);
-	}
-};
-
-/** gives score and says goodbye */
-speechHandlers[constants.speeches.GOODBYE_SPEECH] = function(){
-	console.log('Speech handler ' + constants.speeches.GOODBYE_SPEECH + ' called for ' + this.event.session.sessionId + " session ending");
-	
-};
-
-/** notifies user of unrecoverable failure and ends session */
-speechHandlers[constants.speeches.FATAL_SPEECH] = function(){
-	console.error('ERROR Speech handler ' + constants.speeches.FATAL_SPEECH + ' called for ' + this.event.session.sessionId + " context " + JSON.stringify(this));
-	
+	this.attributes.speechOutput = constants.speechOutputs.CONTINUE_ORDER_SPEECH;
+	this.attributes.repromptSpeech = constants.reprompts.CONTINUE_ORDER_SPEECH;
+	this.emit(
+		':ask',
+		this.attributes.speechOutput,
+		this.attributes.repromptSpeech
+	);
 };
 
 /** notifies user of recoverable failure and continues */
 speechHandlers[constants.speeches.ERROR_SPEECH] = function(){
 	console.error('ERROR Speech handler ' + constants.speeches.ERROR_SPEECH + ' called for ' + this.event.session.sessionId + " context " + JSON.stringify(this));
-	
+	this.attributes.speechOutput = constants.speechOutputs.ERROR_SPEECH;
+	this.attributes.repromptSpeech = constants.reprompts.ERROR_SPEECH + constants.reprompts.HELP_SPEECH;
+	this.emit(
+		':ask',
+		this.attributes.speechOutput,
+		this.attributes.repromptSpeech
+	);
 };
 
 /** informs user of saved order and exits */
 speechHandlers[constants.speeches.ORDER_SAVED_SPEECH] = function(){
 	console.log('Speech handler ' + constants.speeches.ORDER_SAVED_SPEECH + ' called for ' + this.event.session.sessionId + " session ending");
 	this.emit(":tellWithCard", 
-			constants.speechOutputs.WIN_SPEECH, 
-			constants.cardTitles.YOU_WIN,
-			constants.cards.WIN_CARD);
+			constants.speechOutputs.ORDER_SAVED_SPEECH, 
+			constants.cardTitles.ORDER_SAVED,
+			constants.cards.ORDER_SAVED);
 }
 
 /** notifies user of cancelled order and exits */
 speechHandlers[constants.speeches.ORDER_CANCELLED_SPEECH] = function(){
 	console.log('Speech handler ' + constants.speeches.ORDER_CANCELLED_SPEECH + ' called for ' + this.event.session.sessionId + " context " + JSON.stringify(this));
-	
+	this.emit(":tellWithCard", 
+			constants.speechOutputs.ORDER_CANCELLED_SPEECH, 
+			constants.cardTitles.ORDER_CANCELLED,
+			constants.cards.ORDER_CANCELLED);
 };
 
 /** notifies user of that product was successfully added */
 speechHandlers[constants.speeches.PRODUCT_ADDED_SPEECH] = function(){
 	console.log('Speech handler ' + constants.speeches.PRODUCT_ADDED_SPEECH + ' called for ' + this.event.session.sessionId + " context " + JSON.stringify(this));
-	
+	let product = this.attributes.order.products[this.attributes.order.products.length-1]
+	this.attributes.speechOutput = constants.speechOutputs.PRODUCT_ADDED_SPEECH;
+	this.attributes.speechOutput = this.attributes.speechOutput.replace('%s', product.name);
+	this.attributes.speechOutput = this.attributes.speechOutput.replace('%d', product.quantity);
+    this.attributes.repromptSpeech = constants.reprompts.PRODUCT_ADDED_SPEECH;
+    this.attributes.repromptSpeech = this.attributes.repromptSpeech.replace('%s', product.name);
+	this.attributes.repromptSpeech = this.attributes.repromptSpeech.replace('%d', product.quantity);
+	let card = constants.cards.PRODUCT_ADDED;
+    card = card.replace('%s', product.name);
+	card = card.replace('%d', product.quantity);
+    this.emitWithState(
+		':askWithCard',
+		this.attributes.speechOutput,
+		this.attributes.repromptSpeech,
+		constants.cardTitles.PRODUCT_ADDED,
+		card
+	);
 };
 
 /** notifies user that product is found and asks for quantity */
 speechHandlers[constants.speeches.PRODUCT_STARTED_SPEECH] = function(){
 	console.log('Speech handler ' + constants.speeches.PRODUCT_STARTED_SPEECH + ' called for ' + this.event.session.sessionId + " context " + JSON.stringify(this));
-	
+	this.attributes.speechOutput = constants.speechOutputs.PRODUCT_ADDED_SPEECH;
+	this.attributes.speechOutput = this.attributes.speechOutput.replace('%s', this.attributes.currentProduct.name);
+    this.attributes.repromptSpeech = constants.reprompts.PRODUCT_ADDED_SPEECH;
+    this.attributes.repromptSpeech = this.attributes.repromptSpeech.replace('%s', this.attributes.currentProduct.name);
+    this.emit(
+		':ask',
+		this.attributes.speechOutput,
+		this.attributes.repromptSpeech
+	);
 };
 
 /** notifies user that quantity was accepted and asks for product */
 speechHandlers[constants.speeches.QUANTITY_STARTED_SPEECH] = function(){
 	console.log('Speech handler ' + constants.speeches.QUANTITY_STARTED_SPEECH + ' called for ' + this.event.session.sessionId + " context " + JSON.stringify(this));
-	
+	this.attributes.speechOutput = constants.speechOutputs.QUANTITY_STARTED_SPEECH;
+	this.attributes.speechOutput = this.attributes.speechOutput.replace('%d', this.attributes.currentProduct.name);
+    this.attributes.repromptSpeech = constants.reprompts.QUANTITY_STARTED_SPEECH;
+    this.attributes.repromptSpeech = this.attributes.repromptSpeech.replace('%d', this.attributes.currentProduct.name);
+    this.emit(
+		':ask',
+		this.attributes.speechOutput,
+		this.attributes.repromptSpeech
+	);
 };
 
 /** notifies user that there is already an in progress product if they try to order another */
 speechHandlers[constants.speeches.PRODUCT_IN_PROGRESS_SPEECH] = function(){
 	console.log('Speech handler ' + constants.speeches.PRODUCT_IN_PROGRESS_SPEECH + ' called for ' + this.event.session.sessionId + " context " + JSON.stringify(this));
-	
+	this.attributes.speechOutput = constants.speechOutputs.PRODUCT_IN_PROGRESS_SPEECH;
+	this.attributes.speechOutput = this.attributes.speechOutput.replace('%s', this.attributes.currentProduct.name);
+    this.attributes.repromptSpeech = constants.reprompts.PRODUCT_IN_PROGRESS_SPEECH;
+    this.attributes.repromptSpeech = this.attributes.repromptSpeech.replace('%s', this.attributes.currentProduct.name);
+    this.emit(
+		':ask',
+		this.attributes.speechOutput,
+		this.attributes.repromptSpeech
+	);
 };
 
 /** notifies user that there is already an in progress quantity if they try to set another */
 speechHandlers[constants.speeches.QUANTITY_IN_PROGRESS_SPEECH] = function(){
 	console.log('Speech handler ' + constants.speeches.QUANTITY_IN_PROGRESS_SPEECH + ' called for ' + this.event.session.sessionId + " context " + JSON.stringify(this));
-	
+	this.attributes.speechOutput = constants.speechOutputs.PRODUCT_IN_PROGRESS_SPEECH;
+	this.attributes.speechOutput = this.attributes.speechOutput.replace('%d', this.attributes.currentProduct.quantity);
+    this.attributes.repromptSpeech = constants.reprompts.PRODUCT_IN_PROGRESS_SPEECH;
+    this.attributes.repromptSpeech = this.attributes.repromptSpeech.replace('%d', this.attributes.currentProduct.quantity);
+    this.emit(
+		':ask',
+		this.attributes.speechOutput,
+		this.attributes.repromptSpeech
+	);
 };
 
 /** notifies user that requested product is not found or available */
 speechHandlers[constants.speeches.PRODUCT_NOT_FOUND_SPEECH] = function(){
 	console.log('Speech handler ' + constants.speeches.PRODUCT_NOT_FOUND_SPEECH + ' called for ' + this.event.session.sessionId + " context " + JSON.stringify(this));
-	
-};
-
-/** gives warning when user tries to save with no products on order and continues */
-speechHandlers[constants.speeches.NO_PRODUCTS_SPEECH] = function(){
-	console.log('Speech handler ' + constants.speeches.NO_PRODUCTS_SPEECH + ' called for ' + this.event.session.sessionId + " session ending");
-	this.emit(":tellWithCard", 
-			constants.speechOutputs.WIN_SPEECH, 
-			constants.cardTitles.YOU_WIN,
-			constants.cards.WIN_CARD);
+	this.attributes.speechOutput = constants.speechOutputs.PRODUCT_NOT_FOUND_SPEECH;
+    this.attributes.repromptSpeech = constants.reprompts.PRODUCT_NOT_FOUND_SPEECH;
+	this.emit(
+		':ask',
+		this.attributes.speechOutput,
+		this.attributes.repromptSpeech
+	);
 };
 
 /** informs user that a product was removed from the order */
 speechHandlers[constants.speeches.PRODUCT_REMOVED_SPEECH] = function(){
 	console.log('Speech handler ' + constants.speeches.PRODUCT_REMOVED_SPEECH + ' called for ' + this.event.session.sessionId + " session ending");
-	this.emit(":tellWithCard", 
-			constants.speechOutputs.WIN_SPEECH, 
-			constants.cardTitles.YOU_WIN,
-			constants.cards.WIN_CARD);
+	this.attributes.speechOutput = constants.speechOutputs.PRODUCT_REMOVED_SPEECH;
+    this.attributes.repromptSpeech = constants.reprompts.PRODUCT_REMOVED_SPEECH;
+	this.emit(
+		':ask',
+		this.attributes.speechOutput,
+		this.attributes.repromptSpeech
+	);
 };
 
-/** gives the user tips and asks if they want to play */
-var statelessHelp = function(){
+/** gives the user tips and help */
+speechHandlers[constants.speeches.HELP_SPEECH] = function(){
 	console.info('Speech handler ' + constants.speeches.HELP_SPEECH + ' for ' + this.event.session.sessionId + ' State: ' + this.handler.state);
-	this.emit(':ask',
-			constants.speechOutputs.HELP_SPEECH,
-			constants.speechOutputs.HELP_SPEECH);
+	this.attributes.speechOutput = constants.speechOutputs.HELP_SPEECH;
+	this.attributes.repromptSpeech = constants.reprompts.HELP_SPEECH;
+	this.emit(
+		':ask',
+		this.attributes.speechOutput,
+		this.attributes.repromptSpeech
+	);
 };
 
-/** gives the user tips and asks twister */
-var finishModeHelp = function(){
-	console.info('Speech handler ' + constants.speeches.HELP_SPEECH + ' for ' + this.event.session.sessionId + ' State: ' + this.handler.state);
-	
-	if(!this.attributes || !this.attributes.twister || !this.attributes.twister.value){
-		console.error('ERROR Speech handler ' + constants.speeches.HELP_SPEECH + ' no twister found for ' + this.event.session.sessionId);
-		this.emitWithState(constants.speeches.FATAL_SPEECH);
-		return;
-	} else {
-		this.emit(':ask',
-				constants.speechOutputs.HELP_GAME_MODE_SPEECH + this.attributes.twister.value,
-				constants.reprompts.REPEAT_TWISTER_SPEECH + this.attributes.twister.value);
-	}
-};
-
-/** gives the user tips and asks if they want to retry the twister */
-var cancelModeHelp = function(){
-	console.info('Speech handler ' + constants.speeches.HELP_SPEECH + ' for ' + this.event.session.sessionId + ' State: ' + this.handler.state);
-	this.emit(':ask',
-			constants.speechOutputs.HELP_REPEAT_MODE_SPEECH,
-			constants.reprompts.RETRY_SPEECH);
-};
-
-/*/** notifies user of recoverable failure and continues 
+/** notifies user of recoverable failure and asks if they want to continue */
 speechHandlers[constants.speeches.UNHANDLED_SPEECH] = function(){
 	console.warn('WARNING Speech handler ' + constants.speeches.UNHANDLED_SPEECH + ' called for ' + this.event.session.sessionId + " context " + JSON.stringify(this));
-	this.emit(":ask", constants.speechOutputs.UNHANDLED_SPEECH, constants.reprompts.UNHANDLED_SPEECH);
-}
-/** notifies user of recoverable failure and asks if they want to play */
-var statelessUnhandled = function(){
-	console.warn('WARNING Speech handler ' + constants.speeches.UNHANDLED_SPEECH + ' called for ' + this.event.session.sessionId + " context " + JSON.stringify(this));
-	this.emit(":ask", 
-			constants.speechOutputs.UNHANDLED_SPEECH + constants.speechOutputs.HELP_SPEECH, 
-			constants.reprompts.UNHANDLED_SPEECH + constants.speechOutputs.HELP_SPEECH);
-};
-
-/** notifies user of recoverable failure and asks twister */
-var finishModeUnhandled = function(){
-	if(!this.attributes || !this.attributes.twister || !this.attributes.twister.value){
-		console.error('ERROR Speech handler ' + constants.speeches.HELP_SPEECH + ' no twister found for ' + this.event.session.sessionId);
-		this.emitWithState(constants.speeches.FATAL_SPEECH);
-		return;
-	} else {
-		console.warn('WARNING Speech handler ' + constants.speeches.UNHANDLED_SPEECH + ' called for ' + this.event.session.sessionId + " context " + JSON.stringify(this));
-		this.emit(":ask", 
-				constants.speechOutputs.UNHANDLED_SPEECH + constants.speechOutputs.HELP_GAME_MODE_SPEECH + this.attributes.twister.value, 
-				constants.reprompts.UNHANDLED_SPEECH + constants.speechOutputs.HELP_GAME_MODE_SPEECH + this.attributes.twister.value);
-	}
-};
-
-/** notifies user of recoverable failure and asks if they want to retry the twister */
-var cancelModeUnhandled = function(){
-	console.warn('WARNING Speech handler ' + constants.speeches.UNHANDLED_SPEECH + ' called for ' + this.event.session.sessionId + " context " + JSON.stringify(this));
-	this.emit(":ask", 
-			constants.speechOutputs.UNHANDLED_SPEECH + constants.speechOutputs.HELP_REPEAT_MODE_SPEECH, 
-			constants.reprompts.UNHANDLED_SPEECH + constants.speechOutputs.HELP_REPEAT_MODE_SPEECH);
+	this.attributes.speechOutput = constants.speechOutputs.UNHANDLED_SPEECH;
+	this.attributes.repromptSpeech = constants.reprompts.UNHANDLED_SPEECH + constants.reprompts.HELP_SPEECH;
+	this.emit(
+		':ask',
+		this.attributes.speechOutput,
+		this.attributes.repromptSpeech
+	);
 };
  
-var finishMode = Object.assign({}, speechHandlers);
-var cancelMode = Object.assign({}, speechHandlers);
-
-speechHandlers[constants.speeches.HELP_SPEECH] = statelessHelp;
-finishMode[constants.speeches.HELP_SPEECH] = finishModeHelp;
-cancelMode[constants.speeches.HELP_SPEECH] = cancelModeHelp;
-
-speechHandlers[constants.speeches.UNHANDLED_SPEECH] = statelessUnhandled;
-finishMode[constants.speeches.UNHANDLED_SPEECH] = finishModeUnhandled;
-cancelMode[constants.speeches.UNHANDLED_SPEECH] = cancelModeUnhandled;
+let finishMode = Object.assign({}, speechHandlers);
+let cancelMode = Object.assign({}, speechHandlers);
+let repeatMode = Object.assign({}, speechHandlers);
  
 module.exports = {
 	statelessHandlers : speechHandlers,
 	finishModeHandlers : Alexa.CreateStateHandler(constants.states.FINISH_MODE, finishMode),
-	cancelModeHandlers : Alexa.CreateStateHandler(constants.states.CANCEL_MODE, cancelMode)
+	cancelModeHandlers : Alexa.CreateStateHandler(constants.states.CANCEL_MODE, cancelMode),
+	repeatModeHandlers : Alexa.CreateStateHandler(constants.states.REPEAT_MODE, repeatMode)
 };

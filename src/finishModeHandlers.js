@@ -42,7 +42,7 @@ intents[constants.intents.ORDER_QUANTITY_INTENT] = function(){
 /** finish mode handler for repeat order intent. Repeats current order */
 intents[constants.intents.REPEAT_ORDER_INTENT] = function(){
 	console.info('Intent handler ' + constants.intents.REPEAT_ORDER_INTENT + ' for ' + this.event.session.sessionId + ' State: ' + this.handler.state);
-	this.emitWithState(constants.speeches.REPEAT_ORDER_SPEECH);
+	this.emitWithState(constants.events.REPEAT_ORDER);
 };
 
 /** finish mode handler for finish order intent. Unhandled in finish mode */

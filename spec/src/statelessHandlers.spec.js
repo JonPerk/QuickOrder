@@ -33,7 +33,7 @@ describe('statelessHandlers', function() {
     });
 	
 	it('testRepeatOrderIntent', function(done) {
-		execute('testRepeatOrderIntent', 'repeatOrderSpeech', true).then(function(resp){if(resp){done();}else{done();}});
+		execute('testRepeatOrderIntent', 'repeatOrder', true).then(function(resp){if(resp){done();}else{done();}});
     });
 	
 	it('testFinishOrderIntent', function(done) {

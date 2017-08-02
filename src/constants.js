@@ -3,7 +3,8 @@
 module.exports = Object.freeze({
     states: {
     	FINISH_MODE: '_FINISH_MODE',
-    	CANCEL_MODE: '_CANCEL_MODE'
+    	CANCEL_MODE: '_CANCEL_MODE',
+    	REPEAT_MODE: '_REPEAT_MODE'
     },
 	
 	intents: {
@@ -30,7 +31,8 @@ module.exports = Object.freeze({
 		CANCEL_ORDER: 'cancelOrder',
 		CONTINUE_ORDER: 'continueOrder',
 		ADD_PRODUCT: 'addProduct',
-		CANCEL_EVENT: 'cancelEvent'
+		CANCEL_EVENT: 'cancelEvent',
+		REPEAT_ORDER: 'repeatOrder'
 	},
 	
 	speeches: {
@@ -54,67 +56,65 @@ module.exports = Object.freeze({
 		ORDER_CANCELLED_SPEECH: 'orderCancelledSpeech',
 		PRODUCT_REMOVED_SPEECH: 'productRemovedSpeech',
 		NO_PRODUCTS_SPEECH: 'noProductsSpeech',
+		REPEAT_ORDER_MULTI_SPEECH: 'repeatOrderMultiSpeech',
 		ERROR_SPEECH: 'errorSpeech'
 	},
 	
 	speechOutputs: {
-		WELCOME_SPEECH: 'Welcome to TongueTwistTester. Try this tongue twister. Repeat after me. ',
-		FATAL_NO_SCORE_SPEECH: 'An error occured and we had to stop playing, sorry! Please play again soon!',
-		FATAL_SINGLE_SCORE_SPEECH: 'An error occured and we had to stop playing, sorry! You got 1 tongue twister, thanks for playing!',
-		FATAL_MULTI_SCORE_SPEECH: 'An error occured and we had to stop playing, sorry! You got %d tongue twisters, thanks for playing!',
-		SAY_TWISTER_SPEECH: 'Try this tongue twister. Repeat after me. ',
-		CORRECT_SINGLE_SCORE_SPEECH: 'Great job! You got it right! That\'s your first tongue twister. Would you like to try another?',
-		CORRECT_MULTI_SCORE_SPEECH: 'Great job! You got it right! %d tongue twisters completed so far. Would you like to try another?',
-		INCORRECT_SPEECH: 'I\'m sorry, that didn\'t sound quite right. Would you like to try it again?',
-		REPEAT_SPEECH: 'repeatSpeech',
-		RETRY_SPEECH: 'Would you like to try the tongue twister again?',
-		HELP_SPEECH: 'Say give me a tongue twister to start playing.',
-		HELP_GAME_MODE_SPEECH: 'I\'ll give you a tongue twister, and you try to repeat it as best you can. Here\'s the tongue twister. Repeat after me. ',
-		HELP_REPEAT_MODE_SPEECH: 'You didn\'t get the tongue twister correct, but you can try it again. If you would like to try again, say yes. If not, say no.',
-		HELP_CONTINUE_MODE_SPEECH: 'If you would like to keep playing with a new tongue twister, say yes. If you would like to stop playing, say no or stop.',
-		CONTINUE_SPEECH: 'Would you like to try a new tongue twister?',
-		GOODBYE_SPEECH: 'Thanks for playing! I hope you\'ll play again soon! Goodbye!',
-		GOODBYE_SINGLE_SCORE_SPEECH: 'Thanks for playing! You got 1 tongue twister right! Goodbye!',
-		GOODBYE_MULTI_SCORE_SPEECH: 'Thanks for playing! You got %d tongue twisters right! Well done! Goodbye!',
-		UNHANDLED_SPEECH: 'I\'m sorry I couldn\'t understand that. ',
-		WIN_SPEECH: 'Congratulations, you win! You got all the tongue twisters right! Thanks for playing! Goodbye!'
+		WELCOME_SPEECH: 'Welcome to <say-as interpret-as="spell-out">us</say-as> foods quick order! Please state the product and quantity you\'d like to order',
+		REPEAT_ORDER_SPEECH: 'Here is your order so far %s. You can continue adding more products',
+		REPEAT_ORDER_MULTI_SPEECH: 'Here is your order so far %s. Would you like to hear more items on your order?',
+		NO_PRODUCTS_SPEECH: 'You don\'t have any completed products added to your order yet',
+		FINISH_ORDER_SPEECH: 'Would you like to complete your order?',
+		CANCEL_ORDER_SPEECH: 'Would you like to cancel your order? All data will be lost!',
+		CONTINUE_ORDER_SPEECH: 'Please state the product and quantity you\'d like to order',
+		PRODUCT_ADDED_SPEECH: 'I\'ve added %d cases of %s to your order. You can continue adding products or finish the order',
+		PRODUCT_STARTED_SPEECH: 'I found the product %s. How many cases do you need?',
+		QUANTITY_STARTED_SPEECH: 'You asked for %d cases. What product is this for?',
+		PRODUCT_IN_PROGRESS_SPEECH: 'You already started ordering the product %s. How many cases do you want for it?',
+		QUANTITY_IN_PROGRESS_SPEECH: 'You already asked for %d cases but I don\'t know for which product. Which product is it for?',
+		PRODUCT_NOT_FOUND_SPEECH: 'I\'m sorry, the product you wanted could not be found or is not available at this time. Please order another',
+		HELP_SPEECH: 'Order a product by asking for the product name and quantity. You can hear your order so far by saying. Repeat my order. To finish the order say. Finish my order or complete the order',
+		ORDER_SAVED_SPEECH: 'Congratulations! Your order is saved. Please go to your account online to review and submit the order. Goodbye!',
+		ORDER_CANCELLED_SPEECH: 'Your order has been cancelled. Please place another order soon! Goodbye!',
+		PRODUCT_REMOVED_SPEECH: 'The product was removed from the order. You can continue adding products or finish the order',
+		UNHANDLED_SPEECH: 'I\'m sorry I couldn\'t understand that. Please try again',
+		ERROR_SPEECH: 'I had a problem fulfilling your request. Please try it again'
 	},
 	
 	reprompts: {
-		REPEAT_TWISTER_SPEECH: 'Here\'s the tongue twister. Repeat after me. ',
-		CORRECT_SPEECH: 'Would you like to try another tongue twister?',
-		INCORRECT_SPEECH: 'Would you like to try the tongue twister again?',
-		RETRY_SPEECH: 'Would you like to try the tongue twister again?',
-		CONTINUE_SPEECH: 'Would you like to try a new tongue twister?',
-		UNHANDLED_SPEECH: 'I\'m sorry I couldn\'t understand that. '
+		WELCOME_SPEECH: 'Please state the product and quantity you\'d like to order, for example, I need 4 cases of pepperoni',
+		REPEAT_ORDER_SPEECH: 'Here is your order so far %s. You can continue adding more product',
+		REPEAT_ORDER_MULTI_SPEECH: 'Here is your order so far %s. Would you like to hear more items on your order, yes or no?',
+		NO_PRODUCTS_SPEECH: 'You don\'t have any completed products added to your order yet. Please state the product and quantity you\'d like to order',
+		FINISH_ORDER_SPEECH: 'Would you like to complete your order, yes or no?',
+		CANCEL_ORDER_SPEECH: 'Would you like to cancel your order? All data will be lost! Yes or no?',
+		CONTINUE_ORDER_SPEECH: 'Please state the product and quantity you\'d like to order, for example, I need 4 cases of pepperoni',
+		PRODUCT_ADDED_SPEECH: 'I\'ve added %d cases of %s to your order. You can continue adding products or finish the order',
+		PRODUCT_STARTED_SPEECH: 'I found the product %s. How many cases do you need?',
+		QUANTITY_STARTED_SPEECH: 'You asked for %d cases, but I\'m not sure which product you\'d like. What product is this for?',
+		PRODUCT_IN_PROGRESS_SPEECH: 'You already started ordering the product %s. How many cases do you want for it? Or you can say cancel if you don\t want to order it',
+		QUANTITY_IN_PROGRESS_SPEECH: 'You already asked for %d cases but I don\'t know for which product. Which product is it for? Or you can say cancel if you don\t want to order it',
+		PRODUCT_NOT_FOUND_SPEECH: 'I\'m sorry, the product you wanted could not be found or is not available at this time. Please order another',
+		PRODUCT_REMOVED_SPEECH: 'The product was removed from the order. You can continue adding products or finish the order',
+		HELP_SPEECH: 'Order a product by asking for the product name and quantity. You can hear your order so far by saying. Repeat my order. To finish the order say. Finish my order or complete the order',
+		UNHANDLED_SPEECH: 'I\'m sorry I couldn\'t understand that. ',
+		ERROR_SPEECH: 'I had a problem fulfilling your request. Please try it again or '
 	},
 	
 	cardTitles: {
-		TTT: 'Tongue Twist Tester',
-		LETS_PLAY: 'Let\'s Play',
-		FATAL: 'Sorry, something went wrong',
-		CORRECT: 'Way to go!',
-		INCORRECT:'Sorry, that didn\'t sound right',
-		THANK_YOU: 'Thank You!',
-		GREAT_JOB: 'Great Job!',
-		AWESOME_JOB: 'Awesome Job!',
-		YOU_WIN: 'You Win!'
+		WELCOME_CARD: 'Welcome to US Foods\' Quick Order!',
+		REPEAT_ORDER: 'Your Order So Far',
+		ORDER_SAVED: 'Your Order is Saved',
+		ORDER_CANCELLED: 'Your Order is Cancelled',
+		PRODUCT_ADDED: 'Product Added',
 	},
 	
 	cards: {
-		WELCOME_CARD: 'Welcome! Here\'s your twister: ',
-		FATAL_NO_SCORE_CARD: 'An error occured and we had to stop playing, sorry! Please play again soon!',
-		FATAL_SINGLE_SCORE_CARD: 'An error occured and we had to stop playing, sorry! You got 1 tongue twister, thanks for playing!',
-		FATAL_MULTI_SCORE_CARD: 'An error occured and we had to stop playing, sorry! You got %d tongue twisters, thanks for playing!',
-		CORRECT_SINGLE_SCORE_CARD: 'You got the tongue twister correct!',
-		CORRECT_MULTI_SCORE_CARD: 'You got the tongue twister correct! %d tongue twisters completed!',
-		INCORRECT: 'I heard ',
-		INCORRECT_NO_ATTEMPT: 'Please try again',
-		SAY_TWISTER_CARD: 'Try this tongue twister: ',
-		GOODBYE_NO_SCORE_CARD: 'Thanks for trying Tongue Twist Tester! Let\'s play again soon!',
-		GOODBYE_SINGLE_SCORE_CARD: 'Thanks for playing! You got 1 tongue twister! Let\'s play again soon!',
-		GOODBYE_MULTI_SCORE_CARD: 'Thanks for playing! You got %d tongue twisters! Let\'s play again soon!',
-		WIN_CARD: 'Congratulations! You got all the tongue twisters right! Thanks for playing!'
+		WELCOME_CARD: 'State the product and quantity you\'d like to order',
+		ORDER_SAVED: 'To review and submit your order go to your account online',
+		ORDER_CANCELLED: 'Please place another order soon!',
+		PRODUCT_ADDED: '%d cases of %s has been placed on your order'
 	},
 	
     //  Custom constants

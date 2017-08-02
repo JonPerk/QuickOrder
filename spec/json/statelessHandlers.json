@@ -158,8 +158,8 @@
 				  },
 				  "version": "1.0"
 		},
-		"responseHandlerType": "speech",
-		"response": "repeatOrderSpeech"
+		"responseHandlerType": "event",
+		"response": "repeatOrder"
 	},
 	"testFinishOrderIntent": {
 		"requestName": "FinishOrderIntent",

@@ -41,7 +41,7 @@ statelessHandlers[constants.intents.ORDER_QUANTITY_INTENT] = function(){
 /** stateless handler for repeat order intent. Repeats current order */
 statelessHandlers[constants.intents.REPEAT_ORDER_INTENT] = function(){
 	console.info('Intent handler ' + constants.intents.REPEAT_ORDER_INTENT + ' for ' + this.event.session.sessionId + ' State: ' + this.handler.state);
-	this.emit(constants.speeches.REPEAT_ORDER_SPEECH);
+	this.emit(constants.events.REPEAT_ORDER);
 };
 
 /** stateless handler for finish order intent. Puts order to FINISH_MODE state. Asks for confirmation */
