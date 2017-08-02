@@ -1,0 +1,430 @@
+{
+	"testNewSession": {
+		"request": {
+			"session": {
+				"sessionId": "testNewSession",
+				"application": {
+					"applicationId": "amzn1.ask.skill.70cc563b-c7ab-4ac3-9977-7c28e008b45f"
+				},
+				"attributes": {},
+				"user": {
+					"userId": "testAccount"
+				},
+				"new": true
+			},
+			"request": {
+				"type": "LaunchRequest",
+				"requestId": "EdwRequestId.e1cc7e11-93d3-493c-81e5-aa37a4662d6b",
+			    "locale": "en-US",
+			    "timestamp": "2017-05-01T00:14:57Z",
+			    "intent": {
+			    	"name": "LaunchRequest"
+			    }
+			},
+			"version": "1.0"
+		},
+		"resolvePromise": true,
+		"requestHandlerType": "stateless",
+		"requestName": "newSession",
+		"requestState": null,
+		"eventStateHandler": "statelessHandlers",
+		"response": {
+			"handlerType": "speech",
+			"stateHandler":"statelessHandlers",
+			"intent": "welcomeSpeech",
+			"state": null,
+			"order": {
+				"number": "12345",
+				"products": []
+			}
+		}
+	},
+	"testNewSessionBadState": {
+		"request": {
+			"session": {
+				"sessionId": "testNewSessionBadState",
+				"application": {
+					"applicationId": "amzn1.ask.skill.70cc563b-c7ab-4ac3-9977-7c28e008b45f"
+				},
+				"attributes": {},
+				"user": {
+					"userId": "testAccount"
+				},
+				"new": true
+			},
+			"request": {
+				"type": "LaunchRequest",
+				"requestId": "EdwRequestId.e1cc7e11-93d3-493c-81e5-aa37a4662d6b",
+			    "locale": "en-US",
+			    "timestamp": "2017-05-01T00:14:57Z",
+			    "intent": {
+			    	"name": "LaunchRequest"
+			    }
+			},
+			"version": "1.0"
+		},
+		"resolvePromise": true,
+		"requestHandlerType": "finishMode",
+		"requestName": "newSession",
+		"requestState": "_FINISH_MODE",
+		"eventStateHandler": "statelessHandlers",
+		"response": {
+			"handlerType": "speech",
+			"stateHandler":"finishModeHandlers",
+			"intent": "unhandledSpeech",
+			"state": "_FINISH_MODE"
+		}
+	},
+	"testSaveOrder": {
+		"request": {
+			"session": {
+				"sessionId": "testSaveOrder",
+				"application": {
+					"applicationId": "amzn1.ask.skill.70cc563b-c7ab-4ac3-9977-7c28e008b45f"
+				},
+				"attributes": {
+					"order": {
+						"number": "12345",
+						"products": [
+							{
+								"name": "pepperoni",
+								"number": 34572287,
+								"quantity": 2
+							}
+						]
+					}
+				},
+				"user": {
+					"userId": "testAccount"
+				},
+				"new": true
+			},
+			"request": {
+				"type": "LaunchRequest",
+				"requestId": "EdwRequestId.e1cc7e11-93d3-493c-81e5-aa37a4662d6b",
+			    "locale": "en-US",
+			    "timestamp": "2017-05-01T00:14:57Z",
+			    "intent": {
+			    	"name": "LaunchRequest"
+			    }
+			},
+			"version": "1.0"
+		},
+		"resolvePromise": true,
+		"requestHandlerType": "finishMode",
+		"requestName": "saveOrder",
+		"requestState": "_FINISH_MODE",
+		"eventStateHandler": "finishModeHandlers",
+		"response": {
+			"handlerType": "speech",
+			"stateHandler":"finishModeHandlers",
+			"intent": "orderSavedSpeech",
+			"state": "_FINISH_MODE",
+			"order": {
+				"number": "12345",
+				"products": [
+					{
+						"name": "pepperoni",
+						"number": 34572287,
+						"quantity": 2
+					}
+				]
+			}
+		}
+	},
+	"testSaveOrderStateless": {
+		"request": {
+			"session": {
+				"sessionId": "testSaveOrderStateless",
+				"application": {
+					"applicationId": "amzn1.ask.skill.70cc563b-c7ab-4ac3-9977-7c28e008b45f"
+				},
+				"attributes": {
+					"order": {
+						"number": "12345",
+						"products": [
+							{
+								"name": "pepperoni",
+								"number": 34572287,
+								"quantity": 2
+							}
+						]
+					}
+				},
+				"user": {
+					"userId": "testAccount"
+				},
+				"new": true
+			},
+			"request": {
+				"type": "LaunchRequest",
+				"requestId": "EdwRequestId.e1cc7e11-93d3-493c-81e5-aa37a4662d6b",
+			    "locale": "en-US",
+			    "timestamp": "2017-05-01T00:14:57Z",
+			    "intent": {
+			    	"name": "LaunchRequest"
+			    }
+			},
+			"version": "1.0"
+		},
+		"resolvePromise": true,
+		"requestHandlerType": "stateless",
+		"requestName": "saveOrder",
+		"requestState": null,
+		"eventStateHandler": "finishModeHandlers",
+		"response": {
+			"handlerType": "speech",
+			"stateHandler":"statelessHandlers",
+			"intent": "unhandledSpeech",
+			"state": null,
+			"order": {
+				"number": "12345",
+				"products": [
+					{
+						"name": "pepperoni",
+						"number": 34572287,
+						"quantity": 2
+					}
+				]
+			}
+		}
+	},
+	"testSaveOrderWrongState": {
+		"request": {
+			"session": {
+				"sessionId": "testSaveOrderWrongState",
+				"application": {
+					"applicationId": "amzn1.ask.skill.70cc563b-c7ab-4ac3-9977-7c28e008b45f"
+				},
+				"attributes": {
+					"order": {
+						"number": "12345",
+						"products": [
+							{
+								"name": "pepperoni",
+								"number": 34572287,
+								"quantity": 2
+							}
+						]
+					}
+				},
+				"user": {
+					"userId": "testAccount"
+				},
+				"new": true
+			},
+			"request": {
+				"type": "LaunchRequest",
+				"requestId": "EdwRequestId.e1cc7e11-93d3-493c-81e5-aa37a4662d6b",
+			    "locale": "en-US",
+			    "timestamp": "2017-05-01T00:14:57Z",
+			    "intent": {
+			    	"name": "LaunchRequest"
+			    }
+			},
+			"version": "1.0"
+		},
+		"resolvePromise": true,
+		"requestHandlerType": "cancelMode",
+		"requestName": "saveOrder",
+		"requestState": "_CANCEL_MODE",
+		"eventStateHandler": "finishModeHandlers",
+		"response": {
+			"handlerType": "speech",
+			"stateHandler":"cancelModeHandlers",
+			"intent": "unhandledSpeech",
+			"state": "_CANCEL_MODE",
+			"order": {
+				"number": "12345",
+				"products": [
+					{
+						"name": "pepperoni",
+						"number": 34572287,
+						"quantity": 2
+					}
+				]
+			}
+		}
+	},
+	"testSaveOrderNoOrder": {
+		"request": {
+			"session": {
+				"sessionId": "testSaveOrderNoOrder",
+				"application": {
+					"applicationId": "amzn1.ask.skill.70cc563b-c7ab-4ac3-9977-7c28e008b45f"
+				},
+				"attributes": {},
+				"user": {
+					"userId": "testAccount"
+				},
+				"new": true
+			},
+			"request": {
+				"type": "LaunchRequest",
+				"requestId": "EdwRequestId.e1cc7e11-93d3-493c-81e5-aa37a4662d6b",
+			    "locale": "en-US",
+			    "timestamp": "2017-05-01T00:14:57Z",
+			    "intent": {
+			    	"name": "LaunchRequest"
+			    }
+			},
+			"version": "1.0"
+		},
+		"resolvePromise": true,
+		"requestHandlerType": "finishMode",
+		"requestName": "saveOrder",
+		"requestState": "_FINISH_MODE",
+		"eventStateHandler": "finishModeHandlers",
+		"response": {
+			"handlerType": "speech",
+			"stateHandler":"statelessHandlers",
+			"intent": "noProductsSpeech",
+			"state": null
+		}
+	},
+	"testSaveOrderNoProducts": {
+		"request": {
+			"session": {
+				"sessionId": "testSaveOrderNoProducts",
+				"application": {
+					"applicationId": "amzn1.ask.skill.70cc563b-c7ab-4ac3-9977-7c28e008b45f"
+				},
+				"attributes": {
+					"order": {
+						"number": "12345",
+						"products": []
+					}
+				},
+				"user": {
+					"userId": "testAccount"
+				},
+				"new": true
+			},
+			"request": {
+				"type": "LaunchRequest",
+				"requestId": "EdwRequestId.e1cc7e11-93d3-493c-81e5-aa37a4662d6b",
+			    "locale": "en-US",
+			    "timestamp": "2017-05-01T00:14:57Z",
+			    "intent": {
+			    	"name": "LaunchRequest"
+			    }
+			},
+			"version": "1.0"
+		},
+		"resolvePromise": true,
+		"requestHandlerType": "finishMode",
+		"requestName": "saveOrder",
+		"requestState": "_FINISH_MODE",
+		"eventStateHandler": "finishModeHandlers",
+		"response": {
+			"handlerType": "speech",
+			"stateHandler":"statelessHandlers",
+			"intent": "noProductsSpeech",
+			"state": null,
+			"order": {
+				"number": "12345",
+				"products": []
+			}
+		}
+	},
+	"testSaveOrderNullProducts": {
+		"request": {
+			"session": {
+				"sessionId": "testSaveOrderNoProducts",
+				"application": {
+					"applicationId": "amzn1.ask.skill.70cc563b-c7ab-4ac3-9977-7c28e008b45f"
+				},
+				"attributes": {
+					"order": {
+						"number": "12345"
+					}
+				},
+				"user": {
+					"userId": "testAccount"
+				},
+				"new": true
+			},
+			"request": {
+				"type": "LaunchRequest",
+				"requestId": "EdwRequestId.e1cc7e11-93d3-493c-81e5-aa37a4662d6b",
+			    "locale": "en-US",
+			    "timestamp": "2017-05-01T00:14:57Z",
+			    "intent": {
+			    	"name": "LaunchRequest"
+			    }
+			},
+			"version": "1.0"
+		},
+		"resolvePromise": true,
+		"requestHandlerType": "finishMode",
+		"requestName": "saveOrder",
+		"requestState": "_FINISH_MODE",
+		"eventStateHandler": "finishModeHandlers",
+		"response": {
+			"handlerType": "speech",
+			"stateHandler":"statelessHandlers",
+			"intent": "noProductsSpeech",
+			"state": "_FINISH_MODE",
+			"order": {
+				"number": "12345"
+			}
+		}
+	},
+	"testSaveOrderBackendFail": {
+		"request": {
+			"session": {
+				"sessionId": "testSaveOrderBackendFail",
+				"application": {
+					"applicationId": "amzn1.ask.skill.70cc563b-c7ab-4ac3-9977-7c28e008b45f"
+				},
+				"attributes": {
+					"order": {
+						"number": "12345",
+						"products": [
+							{
+								"name": "pepperoni",
+								"number": 34572287,
+								"quantity": 2
+							}
+						]
+					}
+				},
+				"user": {
+					"userId": "testAccount"
+				},
+				"new": true
+			},
+			"request": {
+				"type": "LaunchRequest",
+				"requestId": "EdwRequestId.e1cc7e11-93d3-493c-81e5-aa37a4662d6b",
+			    "locale": "en-US",
+			    "timestamp": "2017-05-01T00:14:57Z",
+			    "intent": {
+			    	"name": "LaunchRequest"
+			    }
+			},
+			"version": "1.0"
+		},
+		"resolvePromise": false,
+		"requestHandlerType": "finishMode",
+		"requestName": "saveOrder",
+		"requestState": "_FINISH_MODE",
+		"eventStateHandler": "finishModeHandlers",
+		"response": {
+			"handlerType": "speech",
+			"stateHandler":"finishModeHandlers",
+			"intent": "errorSpeech",
+			"state": "_FINISH_MODE",
+			"order": {
+				"number": "12345",
+				"products": [
+					{
+						"name": "pepperoni",
+						"number": 34572287,
+						"quantity": 2
+					}
+				]
+			}
+		}
+	}
+}

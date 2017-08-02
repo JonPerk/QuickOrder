@@ -47,7 +47,7 @@
 				  "version": "1.0"
 		},
 		"responseHandlerType": "event",
-		"response": "saveOrder"
+		"response": "cancelOrder"
 	},
 	"testOrderProductIntent": {
 		"requestName": "OrderProductIntent",

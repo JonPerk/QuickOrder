@@ -17,7 +17,7 @@ describe('statelessHandlers', function() {
     });
 	
 	it('testSessionEndedRequest', function(done) {
-		execute('testSessionEndedRequest', 'saveOrder', true).then(function(resp){if(resp){done();}else{done();}});
+		execute('testSessionEndedRequest', 'cancelOrder', true).then(function(resp){if(resp){done();}else{done();}});
     });
 	
 	it('testOrderProductIntent', function(done) {

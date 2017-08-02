@@ -60,7 +60,7 @@ intents[constants.intents.CANCEL_ORDER_INTENT] = function(){
 /** finish mode handler for session ended intent. Exits and saves to database */
 intents[constants.intents.SESSION_ENDED_INTENT] = function(){
 	console.info('Intent handler ' + constants.intents.SESSION_ENDED_INTENT + ' for ' + this.event.session.sessionId + ' State: ' + this.handler.state);
-	this.emitWithState(constants.events.SAVE_ORDER);
+	this.emitWithState(constants.events.CANCEL_ORDER);
 };
 
 /** finish mode handler for yes intent. Exits and saves to database */

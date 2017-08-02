@@ -42,7 +42,10 @@ module.exports = Object.freeze({
 		HELP_SPEECH: 'helpSpeech',
 		GOODBYE_SPEECH: 'goodbyeSpeech',
 		UNHANDLED_SPEECH: 'unhandledSpeech',
-		FATAL_SPEECH: 'fatalSpeech'
+		FATAL_SPEECH: 'fatalSpeech',
+		ORDER_SAVED_SPEECH: 'orderSavedSpeech',
+		NO_PRODUCTS_SPEECH: 'noProductsSpeech',
+		ERROR_SPEECH: 'errorSpeech'
 	},
 	
 	speechOutputs: {

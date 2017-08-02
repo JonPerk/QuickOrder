@@ -11,7 +11,8 @@
 
 const Alexa = require('alexa-sdk');
 const constants = require('./constants');
-const uuidv4 = require('uuid/v4');
+const uuidHelper = require('./uuidHelper');
+const dbHelper = require('./dbHelper');
 
 let eventHandlers = {};
 
@@ -27,43 +28,46 @@ eventHandlers[constants.events.NEW_SESSION] = function(){
 	
 	this.attributes.order = {};
 	this.attributes.order.products = [];
-	this.attributes.order.number = uuidv4();
+	this.attributes.order.number = uuidHelper.getUUID();
 	this.emit(constants.speeches.WELCOME_SPEECH);
 };
 
 /** saves current order to database */
 eventHandlers[constants.events.SAVE_ORDER] = function(){
-	console.info('Event handler ' + constants.events.NEW_TWISTER + ' for ' + this.event.session.sessionId + ' State: ' + this.handler.state);
-	
+	console.info('Event handler ' + constants.events.SAVE_ORDER + ' for ' + this.event.session.sessionId + ' State: ' + this.handler.state);
 	if(!this.handler.state){
-		console.warn('WARNING Event handler ' + constants.events.NEW_TWISTER + ' state mismatch for ' + this.event.session.sessionId + ' Expected state: null Actual State: ' + this.handler.state);
+		console.warn('WARNING Event handler ' + constants.events.NEW_SESSION + ' state mismatch for ' + this.event.session.sessionId + ' Expected state: _FINISH_MODE Actual State: ' + this.handler.state);
 		this.emit(constants.intents.UNHANDLED_INTENT);
 		return;
 	}
-	
-	if(this.handler.state !== constants.states.CONTINUE_MODE){
-		console.warn('WARNING Event handler ' + constants.events.NEW_TWISTER + ' state mismatch for ' + this.event.session.sessionId + ' Expected state: null Actual State: ' + this.handler.state);
+	if(this.handler.state !== constants.states.FINISH_MODE){
+		console.warn('WARNING Event handler ' + constants.events.NEW_SESSION + ' state mismatch for ' + this.event.session.sessionId + ' Expected state: _FINISH_MODE Actual State: ' + this.handler.state);
 		this.emitWithState(constants.intents.UNHANDLED_INTENT);
 		return;
 	}
+	if(!this.attributes.order || !this.attributes.order.products || this.attributes.order.products.length < 1){
+		this.handler.state = null;
+		this.emit(constants.speeches.NO_PRODUCTS_SPEECH);
+		return;
+	}
 	
-	let getTwister = function(context){
-		twisterHelper.getNewTwister(context.attributes.completed, context.attributes.skipped).then(function(twister){
-			if(twister){
-				context.attributes.twister = twister;
-				context.handler.state = constants.states.GAME_MODE;
-				context.emitWithState(constants.speeches.SAY_TWISTER_SPEECH);
-			} else {
-				throw 'No tongue twisters found';
-			}
+	let save = function(context){
+		dbHelper.saveOrder(context.attributes.order)
+		.then(function(){
+			console.log("ORDER SAVED");
+			context.emitWithState(constants.speeches.ORDER_SAVED_SPEECH);
 		})
 		.catch(function(err){
-			console.error('ERROR GetNewTwister failed in event ' + constants.events.NEW_TWISTER + ' for ' + context.event.session.sessionId + ' State: ' + context.handler.state + ' Error: ' + err);
-			context.emit(constants.speeches.FATAL_SPEECH);
+			if(typeof err === 'object' && err !== null){
+				console.error('Event handler ' + constants.events.SAVE_ORDER + ' for ' + context.event.session.sessionId + ' failed on backend database call: ' + JSON.stringify(err));
+			} else {
+				console.error('Event handler ' + constants.events.SAVE_ORDER + ' for ' + context.event.session.sessionId + ' failed on backend database call: ' + err);
+			}
+			context.emitWithState(constants.speeches.ERROR_SPEECH);
 		});
 	};
 	
-	getTwister(this);
+	save(this);
 };
 
 /** cancels current order i.e. doesn't save to database */
