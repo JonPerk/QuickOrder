@@ -123,24 +123,9 @@ speechHandlers[constants.speeches.CANCEL_ORDER_SPEECH] = function(){
 	}
 };
 
-/** asks the user if they want to retry a twister they got wrong */
-speechHandlers[constants.speeches.RETRY_SPEECH] = function(){
-	console.info('Speech handler ' + constants.speeches.RETRY_SPEECH + ' for ' + this.event.session.sessionId + ' State: ' + this.handler.state);
-	
-	if(this.handler.state !== constants.states.REPEAT_MODE){
-		console.warn('WARNING Speech handler ' + constants.speeches.RETRY_SPEECH + ' state mismatch for ' + this.event.session.sessionId + 
-				' Expected state: ' + constants.states.REPEAT_MODE + ' Actual State: ' + this.handler.state);
-		this.emitWithState(constants.intents.UNHANDLED_INTENT);
-	} else {
-		this.emit(":ask", 
-				constants.speechOutputs.RETRY_SPEECH, 
-				constants.reprompts.RETRY_SPEECH);
-	}
-};
-
-/** asks user if they want to continue with a new twister */
-speechHandlers[constants.speeches.CONTINUE_SPEECH] = function(){
-	console.info('Speech handler ' + constants.speeches.CONTINUE_SPEECH + ' for ' + this.event.session.sessionId + ' State: ' + this.handler.state);
+/** tells user they can continue with their order */
+speechHandlers[constants.speeches.CONTINUE_ORDER_SPEECH] = function(){
+	console.info('Speech handler ' + constants.speeches.CONTINUE_ORDER_SPEECH + ' for ' + this.event.session.sessionId + ' State: ' + this.handler.state);
 	
 	if(this.handler.state !== constants.states.CONTINUE_MODE){
 		console.warn('WARNING Speech handler ' + constants.speeches.CONTINUE_SPEECH + ' state mismatch for ' + this.event.session.sessionId + 
@@ -214,7 +199,7 @@ var statelessHelp = function(){
 };
 
 /** gives the user tips and asks twister */
-var gameModeHelp = function(){
+var finishModeHelp = function(){
 	console.info('Speech handler ' + constants.speeches.HELP_SPEECH + ' for ' + this.event.session.sessionId + ' State: ' + this.handler.state);
 	
 	if(!this.attributes || !this.attributes.twister || !this.attributes.twister.value){
@@ -258,7 +243,7 @@ var statelessUnhandled = function(){
 };
 
 /** notifies user of recoverable failure and asks twister */
-var gameModeUnhandled = function(){
+var finishModeUnhandled = function(){
 	if(!this.attributes || !this.attributes.twister || !this.attributes.twister.value){
 		console.error('ERROR Speech handler ' + constants.speeches.HELP_SPEECH + ' no twister found for ' + this.event.session.sessionId);
 		this.emitWithState(constants.speeches.FATAL_SPEECH);
@@ -287,23 +272,23 @@ var continueModeUnhandled = function(){
 			constants.reprompts.UNHANDLED_SPEECH + constants.speechOutputs.HELP_CONTINUE_MODE_SPEECH);
 };
  
-var gameMode = Object.assign({}, speechHandlers);
+var finishMode = Object.assign({}, speechHandlers);
 var repeatMode = Object.assign({}, speechHandlers);
 var continueMode = Object.assign({}, speechHandlers);
 
 speechHandlers[constants.speeches.HELP_SPEECH] = statelessHelp;
-gameMode[constants.speeches.HELP_SPEECH] = gameModeHelp;
+finishMode[constants.speeches.HELP_SPEECH] = finishModeHelp;
 repeatMode[constants.speeches.HELP_SPEECH] = repeatModeHelp;
 continueMode[constants.speeches.HELP_SPEECH] = continueModeHelp;
 
 speechHandlers[constants.speeches.UNHANDLED_SPEECH] = statelessUnhandled;
-gameMode[constants.speeches.UNHANDLED_SPEECH] = gameModeUnhandled;
+finishMode[constants.speeches.UNHANDLED_SPEECH] = finishModeUnhandled;
 repeatMode[constants.speeches.UNHANDLED_SPEECH] = repeatModeUnhandled;
 continueMode[constants.speeches.UNHANDLED_SPEECH] = continueModeUnhandled;
  
 module.exports = {
 	statelessHandlers : speechHandlers,
-	gameModeHandlers : Alexa.CreateStateHandler(constants.states.GAME_MODE, gameMode),
+	finishModeHandlers : Alexa.CreateStateHandler(constants.states.FINISH_MODE, finishMode),
 	repeatModeHandlers : Alexa.CreateStateHandler(constants.states.REPEAT_MODE, repeatMode),
 	continueModeHandlers : Alexa.CreateStateHandler(constants.states.CONTINUE_MODE, continueMode)	
 };

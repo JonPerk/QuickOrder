@@ -125,6 +125,12 @@ eventHandlers[constants.events.CANCEL_ORDER] = function(){
 	}
 };
 
+
+/** resets state and allow user to continue with order */
+eventHandlers[constants.events.CONTINUE_ORDER] = function(){
+	console.info('Event handler ' + constants.events.CONTINUE_ORDER + ' for ' + this.event.session.sessionId + ' State: ' + this.handler.state);
+}
+
 /** adds product to order, 
  * changes state to ADD_QUANTITY_MODE if not provided
  * changes state to ADD_PRODUCT_MODE if not provided */
@@ -161,13 +167,13 @@ eventHandlers[constants.events.ADD_PRODUCT] = function(){
 	}*/
 };
 
-let gameMode = Object.assign({}, eventHandlers);
+let finishMode = Object.assign({}, eventHandlers);
 let repeatMode = Object.assign({}, eventHandlers);
 let continueMode = Object.assign({}, eventHandlers);
  
 module.exports = {
 	statelessHandlers : eventHandlers,
-	gameModeHandlers : Alexa.CreateStateHandler(constants.states.GAME_MODE, gameMode),
+	finishModeHandlers : Alexa.CreateStateHandler(constants.states.FINISH_MODE, finishMode),
 	repeatModeHandlers : Alexa.CreateStateHandler(constants.states.REPEAT_MODE, repeatMode),
 	continueModeHandlers : Alexa.CreateStateHandler(constants.states.CONTINUE_MODE, continueMode)	
 };

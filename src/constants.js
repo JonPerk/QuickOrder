@@ -2,9 +2,8 @@
 
 module.exports = Object.freeze({
     states: {
-        GAME_MODE: '_GAME_MODE',
-        REPEAT_MODE: '_REPEAT_MODE',
-        CONTINUE_MODE: '_CONTINUE_MODE'
+    	FINISH_MODE: '_FINISH_MODE',
+    	CANCEL_MODE: '_CANCEL_MODE'
     },
 	
 	intents: {
@@ -29,6 +28,7 @@ module.exports = Object.freeze({
 		NEW_SESSION: 'newSession',
 		SAVE_ORDER: 'saveOrder',
 		CANCEL_ORDER: 'cancelOrder',
+		CONTINUE_ORDER: 'continueOrder',
 		ADD_PRODUCT: 'addProduct'
 	},
 	
@@ -37,6 +37,7 @@ module.exports = Object.freeze({
 		REPEAT_ORDER_SPEECH: 'repeatOrderSpeech',
 		FINISH_ORDER_SPEECH: 'finishOrderSpeech',
 		CANCEL_ORDER_SPEECH: 'cancelOrderSpeech',
+		CONTINUE_ORDER_SPEECH: 'continueOrderSpeech',
 		REPEAT_SPEECH: 'repeatSpeech',
 		HELP_SPEECH: 'helpSpeech',
 		GOODBYE_SPEECH: 'goodbyeSpeech',
