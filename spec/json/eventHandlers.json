@@ -754,5 +754,704 @@
 				]
 			}
 		}
+	},
+	"testAddProductFullProduct": {
+		"request": {
+			"session": {
+				"sessionId": "testAddProductFullProduct",
+				"application": {
+					"applicationId": "amzn1.ask.skill.70cc563b-c7ab-4ac3-9977-7c28e008b45f"
+				},
+				"attributes": {
+					"order": {
+						"number": "12345",
+						"products": [
+							{
+								"name": "pepperoni",
+								"number": 34572287,
+								"quantity": 2
+							}
+						]
+					}
+				},
+				"user": {
+					"userId": "testAccount"
+				},
+				"new": true
+			},
+			"request": {
+				"type": "IntentRequest",
+				"requestId": "EdwRequestId.e1cc7e11-93d3-493c-81e5-aa37a4662d6b",
+			    "locale": "en-US",
+			    "timestamp": "2017-05-01T00:14:57Z",
+			    "intent": {
+			    	"name": "OrderProductWithQuantityIntent",
+			    	"slots": {
+			    		"Product": {
+			    			"name": "Product",
+			    			"value": "flour"
+			    		},
+		    			"Quantity": {
+		    				"name": "Quantity",
+		    				"value": "4"
+		    			}
+			    	}
+			    }
+			},
+			"version": "1.0"
+		},
+		"resolvePromise": true,
+		"requestHandlerType": "stateless",
+		"requestName": "addProduct",
+		"requestState": null,
+		"eventStateHandler": "statelessHandlers",
+		"response": {
+			"handlerType": "speech",
+			"stateHandler":"statelessHandlers",
+			"intent": "productAddedSpeech",
+			"state": null,
+			"order": {
+				"number": "12345",
+				"products": [
+					{
+						"name": "pepperoni",
+						"number": 34572287,
+						"quantity": 2
+					},
+					{
+						"name": "flour",
+						"number": 45673556,
+						"quantity": 4
+					}
+				]
+			}
+		}
+	},
+	"testAddProductProductOnly": {
+		"request": {
+			"session": {
+				"sessionId": "testAddProductProductOnly",
+				"application": {
+					"applicationId": "amzn1.ask.skill.70cc563b-c7ab-4ac3-9977-7c28e008b45f"
+				},
+				"attributes": {
+					"order": {
+						"number": "12345",
+						"products": [
+							{
+								"name": "pepperoni",
+								"number": 34572287,
+								"quantity": 2
+							}
+						]
+					}
+				},
+				"user": {
+					"userId": "testAccount"
+				},
+				"new": true
+			},
+			"request": {
+				"type": "IntentRequest",
+				"requestId": "EdwRequestId.e1cc7e11-93d3-493c-81e5-aa37a4662d6b",
+			    "locale": "en-US",
+			    "timestamp": "2017-05-01T00:14:57Z",
+			    "intent": {
+			    	"name": "OrderProductIntent",
+			    	"slots": {
+			    		"Product": {
+			    			"name": "Product",
+			    			"value": "flour"
+			    		}
+			    	}
+			    }
+			},
+			"version": "1.0"
+		},
+		"resolvePromise": true,
+		"requestHandlerType": "stateless",
+		"requestName": "addProduct",
+		"requestState": null,
+		"eventStateHandler": "statelessHandlers",
+		"response": {
+			"handlerType": "speech",
+			"stateHandler":"statelessHandlers",
+			"intent": "productStartedSpeech",
+			"state": null,
+			"order": {
+				"number": "12345",
+				"products": [
+					{
+						"name": "pepperoni",
+						"number": 34572287,
+						"quantity": 2
+					}
+				]
+			},
+			"currentProduct":{
+				"name": "flour", 
+				"number" : 45673556
+			}
+		}
+	},
+	"testAddProductQuantityOnly": {
+		"request": {
+			"session": {
+				"sessionId": "testAddProductQuantityOnly",
+				"application": {
+					"applicationId": "amzn1.ask.skill.70cc563b-c7ab-4ac3-9977-7c28e008b45f"
+				},
+				"attributes": {
+					"order": {
+						"number": "12345",
+						"products": [
+							{
+								"name": "pepperoni",
+								"number": 34572287,
+								"quantity": 2
+							}
+						]
+					}
+				},
+				"user": {
+					"userId": "testAccount"
+				},
+				"new": true
+			},
+			"request": {
+				"type": "IntentRequest",
+				"requestId": "EdwRequestId.e1cc7e11-93d3-493c-81e5-aa37a4662d6b",
+			    "locale": "en-US",
+			    "timestamp": "2017-05-01T00:14:57Z",
+			    "intent": {
+			    	"name": "OrderQuantityIntent",
+			    	"slots": {
+		    			"Quantity": {
+		    				"name": "Quantity",
+		    				"value": "4"
+		    			}
+			    	}
+			    }
+			},
+			"version": "1.0"
+		},
+		"resolvePromise": true,
+		"requestHandlerType": "stateless",
+		"requestName": "addProduct",
+		"requestState": null,
+		"eventStateHandler": "statelessHandlers",
+		"response": {
+			"handlerType": "speech",
+			"stateHandler":"statelessHandlers",
+			"intent": "quantityStartedSpeech",
+			"state": null,
+			"order": {
+				"number": "12345",
+				"products": [
+					{
+						"name": "pepperoni",
+						"number": 34572287,
+						"quantity": 2
+					}
+				]
+			},
+			"currentProduct": {
+				"quantity": 4
+			}
+		}
+	},
+	"testAddProductAddQuantityToProduct": {
+		"request": {
+			"session": {
+				"sessionId": "testAddProductAddQuantityToProduct",
+				"application": {
+					"applicationId": "amzn1.ask.skill.70cc563b-c7ab-4ac3-9977-7c28e008b45f"
+				},
+				"attributes": {
+					"order": {
+						"number": "12345",
+						"products": [
+							{
+								"name": "pepperoni",
+								"number": 34572287,
+								"quantity": 2
+							}
+						]
+					},
+					"currentProduct": {
+						"name": "flour",
+						"number": 45673556
+					}
+				},
+				"user": {
+					"userId": "testAccount"
+				},
+				"new": true
+			},
+			"request": {
+				"type": "IntentRequest",
+				"requestId": "EdwRequestId.e1cc7e11-93d3-493c-81e5-aa37a4662d6b",
+			    "locale": "en-US",
+			    "timestamp": "2017-05-01T00:14:57Z",
+			    "intent": {
+			    	"name": "OrderQuantityIntent",
+			    	"slots": {
+		    			"Quantity": {
+		    				"name": "Quantity",
+		    				"value": "4"
+		    			}
+			    	}
+			    }
+			},
+			"version": "1.0"
+		},
+		"resolvePromise": true,
+		"requestHandlerType": "stateless",
+		"requestName": "addProduct",
+		"requestState": null,
+		"eventStateHandler": "statelessHandlers",
+		"response": {
+			"handlerType": "speech",
+			"stateHandler":"statelessHandlers",
+			"intent": "productAddedSpeech",
+			"state": null,
+			"order": {
+				"number": "12345",
+				"products": [
+					{
+						"name": "pepperoni",
+						"number": 34572287,
+						"quantity": 2
+					},
+					{
+						"name": "flour",
+						"number": 45673556,
+						"quantity": 4
+					}
+				]
+			}
+		}
+	},
+	"testAddProductAddProductToQuantity": {
+		"request": {
+			"session": {
+				"sessionId": "testAddProductAddProductToQuantity",
+				"application": {
+					"applicationId": "amzn1.ask.skill.70cc563b-c7ab-4ac3-9977-7c28e008b45f"
+				},
+				"attributes": {
+					"order": {
+						"number": "12345",
+						"products": [
+							{
+								"name": "pepperoni",
+								"number": 34572287,
+								"quantity": 2
+							}
+						]
+					},
+					"currentProduct": {
+						"quantity": 4
+					}
+				},
+				"user": {
+					"userId": "testAccount"
+				},
+				"new": true
+			},
+			"request": {
+				"type": "IntentRequest",
+				"requestId": "EdwRequestId.e1cc7e11-93d3-493c-81e5-aa37a4662d6b",
+			    "locale": "en-US",
+			    "timestamp": "2017-05-01T00:14:57Z",
+			    "intent": {
+			    	"name": "OrderProductIntent",
+			    	"slots": {
+			    		"Product": {
+			    			"name": "Product",
+			    			"value": "flour"
+			    		}
+			    	}
+			    }
+			},
+			"version": "1.0"
+		},
+		"resolvePromise": true,
+		"requestHandlerType": "stateless",
+		"requestName": "addProduct",
+		"requestState": null,
+		"eventStateHandler": "statelessHandlers",
+		"response": {
+			"handlerType": "speech",
+			"stateHandler":"statelessHandlers",
+			"intent": "productAddedSpeech",
+			"state": null,
+			"order": {
+				"number": "12345",
+				"products": [
+					{
+						"name": "pepperoni",
+						"number": 34572287,
+						"quantity": 2
+					},
+					{
+						"name": "flour",
+						"number": 45673556,
+						"quantity": 4
+					}
+				]
+			}
+		}
+	},
+	"testAddProductAddProductWithStartedProduct": {
+		"request": {
+			"session": {
+				"sessionId": "testAddProductAddProductWithStartedProduct",
+				"application": {
+					"applicationId": "amzn1.ask.skill.70cc563b-c7ab-4ac3-9977-7c28e008b45f"
+				},
+				"attributes": {
+					"order": {
+						"number": "12345",
+						"products": [
+							{
+								"name": "pepperoni",
+								"number": 34572287,
+								"quantity": 2
+							}
+						]
+					},
+					"currentProduct": {
+						"name": "flour"
+					}
+				},
+				"user": {
+					"userId": "testAccount"
+				},
+				"new": true
+			},
+			"request": {
+				"type": "IntentRequest",
+				"requestId": "EdwRequestId.e1cc7e11-93d3-493c-81e5-aa37a4662d6b",
+			    "locale": "en-US",
+			    "timestamp": "2017-05-01T00:14:57Z",
+			    "intent": {
+			    	"name": "OrderProductIntent",
+			    	"slots": {
+			    		"Product": {
+			    			"name": "Product",
+			    			"value": "mozzarella cheese"
+			    		}
+			    	}
+			    }
+			},
+			"version": "1.0"
+		},
+		"resolvePromise": true,
+		"requestHandlerType": "stateless",
+		"requestName": "addProduct",
+		"requestState": null,
+		"eventStateHandler": "statelessHandlers",
+		"response": {
+			"handlerType": "speech",
+			"stateHandler":"statelessHandlers",
+			"intent": "productInProgressSpeech",
+			"state": null,
+			"order": {
+				"number": "12345",
+				"products": [
+					{
+						"name": "pepperoni",
+						"number": 34572287,
+						"quantity": 2
+					}
+				]
+			},
+			"currentProduct": {
+				"name": "flour"
+			}
+		}
+	},
+	"testAddProductAddFullProductWithStartedProduct": {
+		"request": {
+			"session": {
+				"sessionId": "testAddProductAddFullProductWithStartedProduct",
+				"application": {
+					"applicationId": "amzn1.ask.skill.70cc563b-c7ab-4ac3-9977-7c28e008b45f"
+				},
+				"attributes": {
+					"order": {
+						"number": "12345",
+						"products": [
+							{
+								"name": "pepperoni",
+								"number": 34572287,
+								"quantity": 2
+							}
+						]
+					},
+					"currentProduct": {
+						"name": "flour"
+					}
+				},
+				"user": {
+					"userId": "testAccount"
+				},
+				"new": true
+			},
+			"request": {
+				"type": "IntentRequest",
+				"requestId": "EdwRequestId.e1cc7e11-93d3-493c-81e5-aa37a4662d6b",
+			    "locale": "en-US",
+			    "timestamp": "2017-05-01T00:14:57Z",
+			    "intent": {
+			    	"name": "OrderProductWithQuantityIntent",
+			    	"slots": {
+			    		"Product": {
+			    			"name": "Product",
+			    			"value": "mozzarella cheese"
+			    		},
+		    			"Quantity": {
+		    				"name": "Quantity",
+		    				"value": "4"
+		    			}
+			    	}
+			    }
+			},
+			"version": "1.0"
+		},
+		"resolvePromise": true,
+		"requestHandlerType": "stateless",
+		"requestName": "addProduct",
+		"requestState": null,
+		"eventStateHandler": "statelessHandlers",
+		"response": {
+			"handlerType": "speech",
+			"stateHandler":"statelessHandlers",
+			"intent": "productInProgressSpeech",
+			"state": null,
+			"order": {
+				"number": "12345",
+				"products": [
+					{
+						"name": "pepperoni",
+						"number": 34572287,
+						"quantity": 2
+					}
+				]
+			},
+			"currentProduct": {
+				"name": "flour"
+			}
+		}
+	},
+	"testAddProductAddQuantityWithStartedQuantity": {
+		"request": {
+			"session": {
+				"sessionId": "testAddProductAddQuantityWithStartedQuantity",
+				"application": {
+					"applicationId": "amzn1.ask.skill.70cc563b-c7ab-4ac3-9977-7c28e008b45f"
+				},
+				"attributes": {
+					"order": {
+						"number": "12345",
+						"products": [
+							{
+								"name": "pepperoni",
+								"number": 34572287,
+								"quantity": 2
+							}
+						]
+					},
+					"currentProduct": {
+						"quantity": 4
+					}
+				},
+				"user": {
+					"userId": "testAccount"
+				},
+				"new": true
+			},
+			"request": {
+				"type": "IntentRequest",
+				"requestId": "EdwRequestId.e1cc7e11-93d3-493c-81e5-aa37a4662d6b",
+			    "locale": "en-US",
+			    "timestamp": "2017-05-01T00:14:57Z",
+			    "intent": {
+			    	"name": "OrderQuantityIntent",
+			    	"slots": {
+			    		"Quantity": {
+			    			"name": "Quantity",
+			    			"value": "4"
+			    		}
+			    	}
+			    }
+			},
+			"version": "1.0"
+		},
+		"resolvePromise": true,
+		"requestHandlerType": "stateless",
+		"requestName": "addProduct",
+		"requestState": null,
+		"eventStateHandler": "statelessHandlers",
+		"response": {
+			"handlerType": "speech",
+			"stateHandler":"statelessHandlers",
+			"intent": "quantityInProgressSpeech",
+			"state": null,
+			"order": {
+				"number": "12345",
+				"products": [
+					{
+						"name": "pepperoni",
+						"number": 34572287,
+						"quantity": 2
+					}
+				]
+			},
+			"currentProduct": {
+				"quantity": 4
+			}
+		}
+	},
+	"testAddProductAddFullProductWithStartedQuantity": {
+		"request": {
+			"session": {
+				"sessionId": "testAddProductAddFullProductWithStartedQuantity",
+				"application": {
+					"applicationId": "amzn1.ask.skill.70cc563b-c7ab-4ac3-9977-7c28e008b45f"
+				},
+				"attributes": {
+					"order": {
+						"number": "12345",
+						"products": [
+							{
+								"name": "pepperoni",
+								"number": 34572287,
+								"quantity": 2
+							}
+						]
+					},
+					"currentProduct": {
+						"quantity": 4
+					}
+				},
+				"user": {
+					"userId": "testAccount"
+				},
+				"new": true
+			},
+			"request": {
+				"type": "IntentRequest",
+				"requestId": "EdwRequestId.e1cc7e11-93d3-493c-81e5-aa37a4662d6b",
+			    "locale": "en-US",
+			    "timestamp": "2017-05-01T00:14:57Z",
+			    "intent": {
+			    	"name": "OrderProductWithQuantityIntent",
+			    	"slots": {
+			    		"Product": {
+			    			"name": "Product",
+			    			"value": "mozzarella cheese"
+			    		},
+			    		"Quantity": {
+			    			"name": "Quantity",
+			    			"value": "4"
+			    		}
+			    	}
+			    }
+			},
+			"version": "1.0"
+		},
+		"resolvePromise": true,
+		"requestHandlerType": "stateless",
+		"requestName": "addProduct",
+		"requestState": null,
+		"eventStateHandler": "statelessHandlers",
+		"response": {
+			"handlerType": "speech",
+			"stateHandler":"statelessHandlers",
+			"intent": "quantityInProgressSpeech",
+			"state": null,
+			"order": {
+				"number": "12345",
+				"products": [
+					{
+						"name": "pepperoni",
+						"number": 34572287,
+						"quantity": 2
+					}
+				]
+			},
+			"currentProduct": {
+				"quantity": 4
+			}
+		}
+	},
+	"testAddProductWrongState": {
+		"request": {
+			"session": {
+				"sessionId": "testAddProductWrongState",
+				"application": {
+					"applicationId": "amzn1.ask.skill.70cc563b-c7ab-4ac3-9977-7c28e008b45f"
+				},
+				"attributes": {
+					"order": {
+						"number": "12345",
+						"products": [
+							{
+								"name": "pepperoni",
+								"number": 34572287,
+								"quantity": 2
+							}
+						]
+					}
+				},
+				"user": {
+					"userId": "testAccount"
+				},
+				"new": true
+			},
+			"request": {
+				"type": "IntentRequest",
+				"requestId": "EdwRequestId.e1cc7e11-93d3-493c-81e5-aa37a4662d6b",
+			    "locale": "en-US",
+			    "timestamp": "2017-05-01T00:14:57Z",
+			    "intent": {
+			    	"name": "OrderProductWithQuantityIntent",
+			    	"slots": {
+			    		"Product": {
+			    			"name": "Product",
+			    			"value": "flour"
+			    		},
+		    			"Quantity": {
+		    				"name": "Quantity",
+		    				"value": "4"
+		    			}
+			    	}
+			    }
+			},
+			"version": "1.0"
+		},
+		"resolvePromise": true,
+		"requestHandlerType": "cancelMode",
+		"requestName": "addProduct",
+		"requestState": "_CANCEL_MODE",
+		"eventStateHandler": "cancelModeHandlers",
+		"response": {
+			"handlerType": "speech",
+			"stateHandler":"cancelModeHandlers",
+			"intent": "unhandledSpeech",
+			"state": "_CANCEL_MODE",
+			"order": {
+				"number": "12345",
+				"products": [
+					{
+						"name": "pepperoni",
+						"number": 34572287,
+						"quantity": 2
+					}
+				]
+			}
+		}
 	}
 }

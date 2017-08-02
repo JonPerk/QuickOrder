@@ -72,6 +72,46 @@ describe('eventHandlers', function() {
 		execute('testContinueOrder').then(function(resp){if(resp){done();}else{done();}});
     });
 	
+	it('testAddProductFullProduct', function(done) {
+		execute('testAddProductFullProduct').then(function(resp){if(resp){done();}else{done();}});
+    });
+	
+	it('testAddProductProductOnly', function(done) {
+		execute('testAddProductProductOnly').then(function(resp){if(resp){done();}else{done();}});
+    });
+	
+	it('testAddProductQuantityOnly', function(done) {
+		execute('testAddProductQuantityOnly').then(function(resp){if(resp){done();}else{done();}});
+    });
+	
+	it('testAddProductAddQuantityToProduct', function(done) {
+		execute('testAddProductAddQuantityToProduct').then(function(resp){if(resp){done();}else{done();}});
+    });
+	
+	it('testAddProductAddProductToQuantity', function(done) {
+		execute('testAddProductAddProductToQuantity').then(function(resp){if(resp){done();}else{done();}});
+    });
+	
+	it('testAddProductAddProductWithStartedProduct', function(done) {
+		execute('testAddProductAddProductWithStartedProduct').then(function(resp){if(resp){done();}else{done();}});
+    });
+	
+	it('testAddProductAddFullProductWithStartedProduct', function(done) {
+		execute('testAddProductAddFullProductWithStartedProduct').then(function(resp){if(resp){done();}else{done();}});
+    });
+	
+	it('testAddProductAddQuantityWithStartedQuantity', function(done) {
+		execute('testAddProductAddQuantityWithStartedQuantity').then(function(resp){if(resp){done();}else{done();}});
+    });
+	
+	it('testAddProductAddFullProductWithStartedQuantity', function(done) {
+		execute('testAddProductAddFullProductWithStartedQuantity').then(function(resp){if(resp){done();}else{done();}});
+    });
+	
+	it('testAddProductWrongState', function(done) {
+		execute('testAddProductWrongState').then(function(resp){if(resp){done();}else{done();}});
+    });
+	
 	function execute(testName){
 		return new Promise(function(resolve, reject){
 			let test = tests[testName];
@@ -108,6 +148,21 @@ describe('eventHandlers', function() {
 				return new Promise(function(resolve, reject){
 					if(test.resolvePromise){
 						resolve();
+					} else {
+						reject({'error': 'Error on de backend'});
+					}
+				})
+			});
+			
+			spyOn(dbHelper, 'getProduct').andCallFake(function(){
+				return new Promise(function(resolve, reject){
+					if(test.resolvePromise){
+						resolve(
+								{
+									'name': 'flour',
+									'number': 45673556
+								}
+						);
 					} else {
 						reject({'error': 'Error on de backend'});
 					}

@@ -109,36 +109,98 @@ eventHandlers[constants.events.CONTINUE_ORDER] = function(){
  * changes state to ADD_QUANTITY_MODE if not provided
  * changes state to ADD_PRODUCT_MODE if not provided */
 eventHandlers[constants.events.ADD_PRODUCT] = function(){
-	console.info('Event handler ' + constants.events.HELP_TWISTER + ' for ' + this.event.session.sessionId + ' State: ' + this.handler.state);
+	console.info('Event handler ' + constants.events.ADD_PRODUCT + ' for ' + this.event.session.sessionId + ' State: ' + this.handler.state);
 	
 	if(this.handler.state){
-		console.warn('WARNING Event handler ' + constants.events.HELP_TWISTER + ' state mismatch for ' + this.event.session.sessionId + ' Expected state: null Actual State: ' + this.handler.state);
+		console.warn('WARNING Event handler ' + constants.events.ADD_PRODUCT + ' state mismatch for ' + this.event.session.sessionId + ' Expected state: null Actual State: ' + this.handler.state);
 		this.emitWithState(constants.intents.UNHANDLED_INTENT);
 		return;
 	}
 	
-	this.handler.state = constants.states.GAME_MODE;
-	
-	/*if(!this.attributes.twister || !this.attributes.twister.value || (!this.attributes.twister.total && this.attributes.twister.total != 0)){
-		let getTwister = function(context){
-			twisterHelper.getNewTwister(context.attributes.completed, context.attributes.skipped).then(function(twister){
-				if(twister){
-					context.attributes.twister = twister;
-					context.emitWithState(constants.speeches.HELP_SPEECH);
-				} else {
-					throw 'No tongue twisters found';
-				}
-			})
-			.catch(function(err){
-				console.error('ERROR GetNewTwister failed in event ' + constants.events.HELP_TWISTER + ' for ' + context.event.session.sessionId + ' State: ' + context.handler.state + ' Error: ' + err);
-				context.emitWithState(constants.speeches.FATAL_SPEECH);
-			});
-		};
-		
-		getTwister(this);
+	let currentProduct = this.attributes.currentProduct;
+	let productName;
+	if(this.event.request.intent.slots && this.event.request.intent.slots.Product){
+		productName = this.event.request.intent.slots.Product.value;
+	}
+	let quantity;
+	if(this.event.request.intent.slots && this.event.request.intent.slots.Quantity && !isNaN(this.event.request.intent.slots.Quantity.value)){
+		quantity = Number(this.event.request.intent.slots.Quantity.value);
+	}
+	if(!productName && !quantity){
+		this.emit(constants.intents.UNHANDLED_INTENT);
+		return;
+	}
+	if(!currentProduct){
+		if(!productName){
+			this.attributes.currentProduct = {};
+			this.attributes.currentProduct.quantity = quantity;
+			this.emit(constants.speeches.QUANTITY_STARTED_SPEECH);
+		} else if(!quantity) {
+			let productSearch = function(context, productName){
+				dbHelper.getProduct(productName)
+				.then(function(product){
+					context.attributes.currentProduct = product;
+					context.emit(constants.speeches.PRODUCT_STARTED_SPEECH);
+				})
+				.catch(function(err){
+					console.info('ProductNotFound in EventHandler ' + constants.events.ADD_PRODUCT + ' for ' + this.event.session.sessionId + ' product search name ' + productName + " error " + err);
+					context.emit(constants.speeches.PRODUCT_NOT_FOUND_SPEECH);
+				});
+			};
+			
+			productSearch(this, productName);
+		} else {
+			let productSearch = function(context, productName, quantity){
+				dbHelper.getProduct(productName)
+				.then(function(product){
+					product.quantity = quantity;
+					context.attributes.order.products.push(product);
+					context.attributes.currentProduct = null;
+					context.emit(constants.speeches.PRODUCT_ADDED_SPEECH);
+				})
+				.catch(function(err){
+					console.info('ProductNotFound in EventHandler ' + constants.events.ADD_PRODUCT + ' for ' + context.event.session.sessionId + ' product search name ' + productName + " error " + err);
+					context.emit(constants.speeches.PRODUCT_NOT_FOUND_SPEECH);
+				});
+			};
+			
+			productSearch(this, productName, quantity);
+		}
+	} else if(!currentProduct.name){
+		if(!productName){
+			this.emit(constants.speeches.QUANTITY_IN_PROGRESS_SPEECH);
+		} else if(!quantity) {
+			let productSearch = function(context, productName, quantity){
+				dbHelper.getProduct(productName)
+				.then(function(product){
+					product.quantity = quantity;
+					context.attributes.order.products.push(product);
+					context.attributes.currentProduct = null;
+					context.emit(constants.speeches.PRODUCT_ADDED_SPEECH);
+				})
+				.catch(function(err){
+					console.warn('ProductNotFound in EventHandler ' + constants.events.ADD_PRODUCT + ' for ' + context.event.session.sessionId + ' product search name ' + productName + " error " + err);
+					context.emit(constants.speeches.PRODUCT_NOT_FOUND_SPEECH);
+				});
+			};
+			
+			productSearch(this, productName, currentProduct.quantity);
+		} else {
+			this.emit(constants.speeches.QUANTITY_IN_PROGRESS_SPEECH);
+		}
 	} else {
-		this.emitWithState(constants.speeches.HELP_SPEECH);
-	}*/
+		if(!productName){
+			let product = currentProduct;
+			product.quantity = quantity;
+			this.attributes.order.products.push(product);
+			this.attributes.currentProduct = null;
+			this.emit(constants.speeches.PRODUCT_ADDED_SPEECH);
+		} else if(!quantity) {
+			this.emit(constants.speeches.PRODUCT_IN_PROGRESS_SPEECH);
+		} else {
+			this.emit(constants.speeches.PRODUCT_IN_PROGRESS_SPEECH);
+		}
+	}
 };
 
 let finishMode = Object.assign({}, eventHandlers);

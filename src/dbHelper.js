@@ -17,6 +17,11 @@ var dbHelper = {
 		return new Promise(function(resolve, reject){
 			reject({'error':'not yet implemented'});
 		});
+	},
+	getProduct : function(productName){
+		return new Promise(function(resolve, reject){
+			reject({'error':'not yet implemented'});
+		});
 	}
 };
 

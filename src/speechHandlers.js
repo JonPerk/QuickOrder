@@ -91,6 +91,42 @@ speechHandlers[constants.speeches.ORDER_CANCELLED_SPEECH] = function(){
 	
 };
 
+/** notifies user of that product was successfully added */
+speechHandlers[constants.speeches.PRODUCT_ADDED_SPEECH] = function(){
+	console.log('Speech handler ' + constants.speeches.PRODUCT_ADDED_SPEECH + ' called for ' + this.event.session.sessionId + " context " + JSON.stringify(this));
+	
+};
+
+/** notifies user that product is found and asks for quantity */
+speechHandlers[constants.speeches.PRODUCT_STARTED_SPEECH] = function(){
+	console.log('Speech handler ' + constants.speeches.PRODUCT_STARTED_SPEECH + ' called for ' + this.event.session.sessionId + " context " + JSON.stringify(this));
+	
+};
+
+/** notifies user that quantity was accepted and asks for product */
+speechHandlers[constants.speeches.QUANTITY_STARTED_SPEECH] = function(){
+	console.log('Speech handler ' + constants.speeches.QUANTITY_STARTED_SPEECH + ' called for ' + this.event.session.sessionId + " context " + JSON.stringify(this));
+	
+};
+
+/** notifies user that there is already an in progress product if they try to order another */
+speechHandlers[constants.speeches.PRODUCT_IN_PROGRESS_SPEECH] = function(){
+	console.log('Speech handler ' + constants.speeches.PRODUCT_IN_PROGRESS_SPEECH + ' called for ' + this.event.session.sessionId + " context " + JSON.stringify(this));
+	
+};
+
+/** notifies user that there is already an in progress quantity if they try to set another */
+speechHandlers[constants.speeches.QUANTITY_IN_PROGRESS_SPEECH] = function(){
+	console.log('Speech handler ' + constants.speeches.QUANTITY_IN_PROGRESS_SPEECH + ' called for ' + this.event.session.sessionId + " context " + JSON.stringify(this));
+	
+};
+
+/** notifies user that requested product is not found or available */
+speechHandlers[constants.speeches.PRODUCT_NOT_FOUND_SPEECH] = function(){
+	console.log('Speech handler ' + constants.speeches.PRODUCT_NOT_FOUND_SPEECH + ' called for ' + this.event.session.sessionId + " context " + JSON.stringify(this));
+	
+};
+
 /** gives warning when user tries to save with no products on order and continues */
 speechHandlers[constants.speeches.NO_PRODUCTS_SPEECH] = function(){
 	console.log('Speech handler ' + constants.speeches.NO_PRODUCTS_SPEECH + ' called for ' + this.event.session.sessionId + " session ending");
