@@ -1,0 +1,388 @@
+{
+	"testLaunchRequest": {
+		"requestName": "LaunchRequest",
+		"request": {
+			"session": {
+				"sessionId": "testLaunchRequest",
+				"application": {
+					"applicationId": "amzn1.ask.skill.70cc563b-c7ab-4ac3-9977-7c28e008b45f"
+				},
+				"attributes": {},
+				"user": {
+					"userId": "testAccount"
+				},
+				"new": true
+			},
+			"request": {
+				"type": "LaunchRequest",
+				"requestId": "EdwRequestId.e1cc7e11-93d3-493c-81e5-aa37a4662d6b",
+			    "locale": "en-US",
+			    "timestamp": "2017-05-01T00:14:57Z"
+			},
+			"version": "1.0"
+		},
+		"responseHandlerType": "speech",
+		"response": "unhandledSpeech"
+	},
+	"testSessionEndedRequest": {
+		"requestName": "SessionEndedRequest",
+		"request": {
+			  "session": {
+				    "sessionId": "testSessionEndedRequest",
+				    "application": {
+				      "applicationId": "amzn1.ask.skill.70cc563b-c7ab-4ac3-9977-7c28e008b45f"
+				    },
+				    "attributes": {},
+				    "user": {
+				      "userId": "testAccount"
+				    },
+				    "new": true
+				  },
+				  "request": {
+				    "type": "SessionEndedRequest",
+				    "requestId": "EdwRequestId.e1cc7e11-93d3-493c-81e5-aa37a4662d6b",
+				    "locale": "en-US",
+				    "timestamp": "2017-05-01T00:14:57Z"
+				  },
+				  "version": "1.0"
+		},
+		"responseHandlerType": "event",
+		"response": "cancelOrder"
+	},
+	"testOrderProductIntent": {
+		"requestName": "OrderProductIntent",
+		"request": {
+			  "session": {
+				    "sessionId": "testOrderProductIntent",
+				    "application": {
+				      "applicationId": "amzn1.ask.skill.70cc563b-c7ab-4ac3-9977-7c28e008b45f"
+				    },
+				    "attributes": {},
+				    "user": {
+				      "userId": "testAccount"
+				    },
+				    "new": true
+				  },
+				  "request": {
+				    "type": "IntentRequest",
+				    "requestId": "EdwRequestId.e1cc7e11-93d3-493c-81e5-aa37a4662d6b",
+				    "locale": "en-US",
+				    "timestamp": "2017-05-01T00:14:57Z",
+			    	"intent": {
+						"name": "OrderProductIntent"
+					}
+				  },
+				  "version": "1.0"
+		},
+		"responseHandlerType": "speech",
+		"response": "unhandledSpeech"
+	},
+	"testOrderProductWithQuantityIntent": {
+		"requestName": "OrderProductWithQuantityIntent",
+		"request": {
+			  "session": {
+				    "sessionId": "testOrderProductWithQuantityIntent",
+				    "application": {
+				      "applicationId": "amzn1.ask.skill.70cc563b-c7ab-4ac3-9977-7c28e008b45f"
+				    },
+				    "attributes": {},
+				    "user": {
+				      "userId": "testAccount"
+				    },
+				    "new": true
+				  },
+				  "request": {
+				    "type": "IntentRequest",
+				    "requestId": "EdwRequestId.e1cc7e11-93d3-493c-81e5-aa37a4662d6b",
+				    "locale": "en-US",
+				    "timestamp": "2017-05-01T00:14:57Z",
+			    	"intent": {
+						"name": "OrderProductWithQuantityIntent"
+					}
+				  },
+				  "version": "1.0"
+		},
+		"responseHandlerType": "speech",
+		"response": "unhandledSpeech"
+	},
+	"testOrderQuantityIntent": {
+		"requestName": "OrderQuantityIntent",
+		"request": {
+			  "session": {
+				    "sessionId": "testOrderQuantityIntent",
+				    "application": {
+				      "applicationId": "amzn1.ask.skill.70cc563b-c7ab-4ac3-9977-7c28e008b45f"
+				    },
+				    "attributes": {},
+				    "user": {
+				      "userId": "testAccount"
+				    },
+				    "new": true
+				  },
+				  "request": {
+				    "type": "IntentRequest",
+				    "requestId": "EdwRequestId.e1cc7e11-93d3-493c-81e5-aa37a4662d6b",
+				    "locale": "en-US",
+				    "timestamp": "2017-05-01T00:14:57Z",
+			    	"intent": {
+						"name": "OrderQuantityIntent"
+					}
+				  },
+				  "version": "1.0"
+		},
+		"responseHandlerType": "speech",
+		"response": "unhandledSpeech"
+	},
+	"testRepeatOrderIntent": {
+		"requestName": "RepeatOrderIntent",
+		"request": {
+			  "session": {
+				    "sessionId": "testRepeatOrderIntent",
+				    "application": {
+				      "applicationId": "amzn1.ask.skill.70cc563b-c7ab-4ac3-9977-7c28e008b45f"
+				    },
+				    "attributes": {},
+				    "user": {
+				      "userId": "testAccount"
+				    },
+				    "new": true
+				  },
+				  "request": {
+				    "type": "IntentRequest",
+				    "requestId": "EdwRequestId.e1cc7e11-93d3-493c-81e5-aa37a4662d6b",
+				    "locale": "en-US",
+				    "timestamp": "2017-05-01T00:14:57Z",
+			    	"intent": {
+						"name": "RepeatOrderIntent"
+					}
+				  },
+				  "version": "1.0"
+		},
+		"responseHandlerType": "speech",
+		"response": "repeatOrderSpeech"
+	},
+	"testFinishOrderIntent": {
+		"requestName": "FinishOrderIntent",
+		"request": {
+			  "session": {
+				    "sessionId": "testFinishOrderIntent",
+				    "application": {
+				      "applicationId": "amzn1.ask.skill.70cc563b-c7ab-4ac3-9977-7c28e008b45f"
+				    },
+				    "attributes": {},
+				    "user": {
+				      "userId": "testAccount"
+				    },
+				    "new": true
+				  },
+				  "request": {
+				    "type": "IntentRequest",
+				    "requestId": "EdwRequestId.e1cc7e11-93d3-493c-81e5-aa37a4662d6b",
+				    "locale": "en-US",
+				    "timestamp": "2017-05-01T00:14:57Z",
+			    	"intent": {
+						"name": "FinishOrderIntent"
+					}
+				  },
+				  "version": "1.0"
+		},
+		"responseHandlerType": "speech",
+		"response": "unhandledSpeech"
+	},
+	"testCancelOrderIntent": {
+		"requestName": "CancelOrderIntent",
+		"request": {
+			  "session": {
+				    "sessionId": "testCancelOrderIntent",
+				    "application": {
+				      "applicationId": "amzn1.ask.skill.70cc563b-c7ab-4ac3-9977-7c28e008b45f"
+				    },
+				    "attributes": {},
+				    "user": {
+				      "userId": "testAccount"
+				    },
+				    "new": true
+				  },
+				  "request": {
+				    "type": "IntentRequest",
+				    "requestId": "EdwRequestId.e1cc7e11-93d3-493c-81e5-aa37a4662d6b",
+				    "locale": "en-US",
+				    "timestamp": "2017-05-01T00:14:57Z",
+			    	"intent": {
+						"name": "CancelOrderIntent"
+					}
+				  },
+				  "version": "1.0"
+		},
+		"responseHandlerType": "event",
+		"response": "cancelOrder"
+	},
+	"testYesIntent": {
+		"requestName": "AMAZON.YesIntent",
+		"request": {
+			  "session": {
+				    "sessionId": "testYesIntent",
+				    "application": {
+				      "applicationId": "amzn1.ask.skill.70cc563b-c7ab-4ac3-9977-7c28e008b45f"
+				    },
+				    "attributes": {},
+				    "user": {
+				      "userId": "testAccount"
+				    },
+				    "new": true
+				  },
+				  "request": {
+				    "type": "IntentRequest",
+				    "requestId": "EdwRequestId.e1cc7e11-93d3-493c-81e5-aa37a4662d6b",
+				    "locale": "en-US",
+				    "timestamp": "2017-05-01T00:14:57Z",
+			    	"intent": {
+						"name": "AMAZON.YesIntent"
+					}
+				  },
+				  "version": "1.0"
+		},
+		"responseHandlerType": "event",
+		"response": "cancelOrder"
+	},
+	"testNoIntent": {
+		"requestName": "AMAZON.NoIntent",
+		"request": {
+			  "session": {
+				    "sessionId": "testNoIntent",
+				    "application": {
+				      "applicationId": "amzn1.ask.skill.70cc563b-c7ab-4ac3-9977-7c28e008b45f"
+				    },
+				    "attributes": {},
+				    "user": {
+				      "userId": "testAccount"
+				    },
+				    "new": true
+				  },
+				  "request": {
+				    "type": "IntentRequest",
+				    "requestId": "EdwRequestId.e1cc7e11-93d3-493c-81e5-aa37a4662d6b",
+				    "locale": "en-US",
+				    "timestamp": "2017-05-01T00:14:57Z",
+			    	"intent": {
+						"name": "AMAZON.NoIntent"
+					}
+				  },
+				  "version": "1.0"
+		},
+		"responseHandlerType": "event",
+		"response": "continueOrder"
+	},
+	"testHelpIntent": {
+		"requestName": "AMAZON.HelpIntent",
+		"request": {
+			  "session": {
+				    "sessionId": "testHelpIntent",
+				    "application": {
+				      "applicationId": "amzn1.ask.skill.70cc563b-c7ab-4ac3-9977-7c28e008b45f"
+				    },
+				    "attributes": {},
+				    "user": {
+				      "userId": "testAccount"
+				    },
+				    "new": true
+				  },
+				  "request": {
+				    "type": "IntentRequest",
+				    "requestId": "EdwRequestId.e1cc7e11-93d3-493c-81e5-aa37a4662d6b",
+				    "locale": "en-US",
+				    "timestamp": "2017-05-01T00:14:57Z",
+			    	"intent": {
+						"name": "AMAZON.HelpIntent"
+					}
+				  },
+				  "version": "1.0"
+		},
+		"responseHandlerType": "speech",
+		"response": "helpSpeech"
+	},
+	"testStopIntent": {
+		"requestName": "AMAZON.StopIntent",
+		"request": {
+			  "session": {
+				    "sessionId": "testStopIntent",
+				    "application": {
+				      "applicationId": "amzn1.ask.skill.70cc563b-c7ab-4ac3-9977-7c28e008b45f"
+				    },
+				    "attributes": {},
+				    "user": {
+				      "userId": "testAccount"
+				    },
+				    "new": true
+				  },
+				  "request": {
+				    "type": "IntentRequest",
+				    "requestId": "EdwRequestId.e1cc7e11-93d3-493c-81e5-aa37a4662d6b",
+				    "locale": "en-US",
+				    "timestamp": "2017-05-01T00:14:57Z",
+			    	"intent": {
+						"name": "AMAZON.StopIntent"
+					}
+				  },
+				  "version": "1.0"
+		},
+		"responseHandlerType": "event",
+		"response": "continueOrder"
+	},
+	"testCancelIntent": {
+		"requestName": "AMAZON.CancelIntent",
+		"request": {
+			  "session": {
+				    "sessionId": "testCancelIntent",
+				    "application": {
+				      "applicationId": "amzn1.ask.skill.70cc563b-c7ab-4ac3-9977-7c28e008b45f"
+				    },
+				    "attributes": {},
+				    "user": {
+				      "userId": "testAccount"
+				    },
+				    "new": true
+				  },
+				  "request": {
+				    "type": "IntentRequest",
+				    "requestId": "EdwRequestId.e1cc7e11-93d3-493c-81e5-aa37a4662d6b",
+				    "locale": "en-US",
+				    "timestamp": "2017-05-01T00:14:57Z",
+			    	"intent": {
+						"name": "AMAZON.CancelIntent"
+					}
+				  },
+				  "version": "1.0"
+		},
+		"responseHandlerType": "event",
+		"response": "continueOrder"
+	},
+	"testUnhandledIntent": {
+		"requestName": "Unhandled",
+		"request": {
+			  "session": {
+				    "sessionId": "testUnhandledIntent",
+				    "application": {
+				      "applicationId": "amzn1.ask.skill.70cc563b-c7ab-4ac3-9977-7c28e008b45f"
+				    },
+				    "attributes": {},
+				    "user": {
+				      "userId": "testAccount"
+				    },
+				    "new": true
+				  },
+				  "request": {
+				    "type": "IntentRequest",
+				    "requestId": "EdwRequestId.e1cc7e11-93d3-493c-81e5-aa37a4662d6b",
+				    "locale": "en-US",
+				    "timestamp": "2017-05-01T00:14:57Z",
+			    	"intent": {
+						"name": "Unhandled"
+					}
+				  },
+				  "version": "1.0"
+		},
+		"responseHandlerType": "speech",
+		"response": "unhandledSpeech"
+	}
+}

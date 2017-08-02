@@ -214,19 +214,11 @@ var finishModeHelp = function(){
 };
 
 /** gives the user tips and asks if they want to retry the twister */
-var repeatModeHelp = function(){
+var cancelModeHelp = function(){
 	console.info('Speech handler ' + constants.speeches.HELP_SPEECH + ' for ' + this.event.session.sessionId + ' State: ' + this.handler.state);
 	this.emit(':ask',
 			constants.speechOutputs.HELP_REPEAT_MODE_SPEECH,
 			constants.reprompts.RETRY_SPEECH);
-};
-
-/** gives the user tips and asks if they want to try a new twister */
-var continueModeHelp = function(){
-	console.info('Speech handler ' + constants.speeches.HELP_SPEECH + ' for ' + this.event.session.sessionId + ' State: ' + this.handler.state);
-	this.emit(':ask',
-			constants.speechOutputs.HELP_CONTINUE_MODE_SPEECH,
-			constants.reprompts.CONTINUE_SPEECH);
 };
 
 /*/** notifies user of recoverable failure and continues 
@@ -257,38 +249,26 @@ var finishModeUnhandled = function(){
 };
 
 /** notifies user of recoverable failure and asks if they want to retry the twister */
-var repeatModeUnhandled = function(){
+var cancelModeUnhandled = function(){
 	console.warn('WARNING Speech handler ' + constants.speeches.UNHANDLED_SPEECH + ' called for ' + this.event.session.sessionId + " context " + JSON.stringify(this));
 	this.emit(":ask", 
 			constants.speechOutputs.UNHANDLED_SPEECH + constants.speechOutputs.HELP_REPEAT_MODE_SPEECH, 
 			constants.reprompts.UNHANDLED_SPEECH + constants.speechOutputs.HELP_REPEAT_MODE_SPEECH);
 };
-
-/** notifies user of recoverable failure and asks if they want to try a new twister */
-var continueModeUnhandled = function(){
-	console.warn('WARNING Speech handler ' + constants.speeches.UNHANDLED_SPEECH + ' called for ' + this.event.session.sessionId + " context " + JSON.stringify(this));
-	this.emit(":ask", 
-			constants.speechOutputs.UNHANDLED_SPEECH + constants.speechOutputs.HELP_CONTINUE_MODE_SPEECH, 
-			constants.reprompts.UNHANDLED_SPEECH + constants.speechOutputs.HELP_CONTINUE_MODE_SPEECH);
-};
  
 var finishMode = Object.assign({}, speechHandlers);
-var repeatMode = Object.assign({}, speechHandlers);
-var continueMode = Object.assign({}, speechHandlers);
+var cancelMode = Object.assign({}, speechHandlers);
 
 speechHandlers[constants.speeches.HELP_SPEECH] = statelessHelp;
 finishMode[constants.speeches.HELP_SPEECH] = finishModeHelp;
-repeatMode[constants.speeches.HELP_SPEECH] = repeatModeHelp;
-continueMode[constants.speeches.HELP_SPEECH] = continueModeHelp;
+cancelMode[constants.speeches.HELP_SPEECH] = cancelModeHelp;
 
 speechHandlers[constants.speeches.UNHANDLED_SPEECH] = statelessUnhandled;
 finishMode[constants.speeches.UNHANDLED_SPEECH] = finishModeUnhandled;
-repeatMode[constants.speeches.UNHANDLED_SPEECH] = repeatModeUnhandled;
-continueMode[constants.speeches.UNHANDLED_SPEECH] = continueModeUnhandled;
+cancelMode[constants.speeches.UNHANDLED_SPEECH] = cancelModeUnhandled;
  
 module.exports = {
 	statelessHandlers : speechHandlers,
 	finishModeHandlers : Alexa.CreateStateHandler(constants.states.FINISH_MODE, finishMode),
-	repeatModeHandlers : Alexa.CreateStateHandler(constants.states.REPEAT_MODE, repeatMode),
-	continueModeHandlers : Alexa.CreateStateHandler(constants.states.CONTINUE_MODE, continueMode)	
+	cancelModeHandlers : Alexa.CreateStateHandler(constants.states.CANCEL_MODE, cancelMode)
 };

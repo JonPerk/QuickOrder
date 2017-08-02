@@ -168,12 +168,10 @@ eventHandlers[constants.events.ADD_PRODUCT] = function(){
 };
 
 let finishMode = Object.assign({}, eventHandlers);
-let repeatMode = Object.assign({}, eventHandlers);
-let continueMode = Object.assign({}, eventHandlers);
+let cancelMode = Object.assign({}, eventHandlers);
  
 module.exports = {
 	statelessHandlers : eventHandlers,
 	finishModeHandlers : Alexa.CreateStateHandler(constants.states.FINISH_MODE, finishMode),
-	repeatModeHandlers : Alexa.CreateStateHandler(constants.states.REPEAT_MODE, repeatMode),
-	continueModeHandlers : Alexa.CreateStateHandler(constants.states.CONTINUE_MODE, continueMode)	
+	cancelModeHandlers : Alexa.CreateStateHandler(constants.states.CANCEL_MODE, cancelMode)
 };
