@@ -13,19 +13,18 @@ const AWS = require('aws-sdk');
 const config = require('./configuration');
 
 AWS.config.update({
-	  region: config.dbRegion//,
-	  //endpoint: config.dbEndpoint
-	});
+  region: config.dbRegion
+});
 
 const docClient = new AWS.DynamoDB.DocumentClient();
 
 /** reads products from database, writes orders */
-var dbHelper = {
+const dbHelper = {
 	saveOrder : function(order){
 		console.info("Save order for " + JSON.stringify(order, null, 2));
 		return new Promise(function(resolve, reject){
 			let params = {
-				TableName: 'orders',
+				TableName: 'orderdetail',
 				Item: order
 			}
 			
@@ -44,9 +43,9 @@ var dbHelper = {
 		console.info("Get product for " + productName);
 		return new Promise(function(resolve, reject){
 			let params = {
-			    TableName: 'products',
+			    TableName: 'productdetails',
 			    Key:{
-			        "name": productName
+			        "prodname": productName
 			    }
 			};
 

@@ -5,7 +5,8 @@ const index = require('../../src/index'),
 	eventHandlers = require('../../src/eventHandlers'),
 	speechHandlers = require('../../src/speechHandlers'),
 	uuidHelper = require('../../src/uuidHelper'),
-	dbHelper = require('../../src/dbHelper');
+	dbHelper = require('../../src/dbHelper'),
+	snsHelper = require('../../src/snsHelper');
 let context = require('aws-lambda-mock-context'),
 	tests = require('../json/index');
 
@@ -144,6 +145,11 @@ describe('eventHandlers', function() {
 			intent = test.request;
 			
 			spyOn(uuidHelper, 'getUUID').andCallFake(function(){return "12345"});
+			spyOn(snsHelper, 'sendSaveOrderMessage').andCallFake(function(){
+				return new Promise(function(resolve, reject){
+						resolve();
+				})
+			});
 			spyOn(dbHelper, 'saveOrder').andCallFake(function(){
 				return new Promise(function(resolve, reject){
 					if(test.resolvePromise){

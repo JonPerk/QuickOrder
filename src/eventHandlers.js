@@ -13,6 +13,7 @@ const Alexa = require('alexa-sdk');
 const constants = require('./constants');
 const uuidHelper = require('./uuidHelper');
 const dbHelper = require('./dbHelper');
+const snsHelper = require('./snsHelper');
 
 let eventHandlers = {};
 
@@ -28,7 +29,8 @@ eventHandlers[constants.events.NEW_SESSION] = function(){
 	
 	this.attributes.order = {};
 	this.attributes.order.products = [];
-	this.attributes.order.number = uuidHelper.getUUID();
+	this.attributes.order.ordernbr = uuidHelper.getUUID();
+	this.attributes.order.status = 'IN_PROGRESS';
 	this.emit(constants.speeches.WELCOME_SPEECH);
 };
 
@@ -56,7 +58,18 @@ eventHandlers[constants.events.SAVE_ORDER] = function(){
 		dbHelper.saveOrder(context.attributes.order)
 		.then(function(){
 			console.log("ORDER SAVED");
-			context.emitWithState(constants.speeches.ORDER_SAVED_SPEECH);
+			let sendMessage = function(){
+				snsHelper.sendSaveOrderMessage(context.attributes.order.ordernbr)
+				.then(function(result){
+					console.info("Send save message succeeded " + result);
+					context.emitWithState(constants.speeches.ORDER_SAVED_SPEECH);
+				})
+				.catch(function(err){
+					console.warn("Send save message failed " + err);
+					context.emitWithState(constants.speeches.ORDER_SAVED_SPEECH);
+				});
+			}
+			sendMessage();
 		})
 		.catch(function(err){
 			if(typeof err === 'object' && err !== null){
@@ -163,7 +176,8 @@ eventHandlers[constants.events.ADD_PRODUCT] = function(){
 					product.quantity = quantity;
 					if(!context.attributes.order){
 						context.attributes.order = {};
-						context.attributes.order.number = uuidHelper.getUUID();
+						context.attributes.order.ordernbr = uuidHelper.getUUID();
+						context.attributes.order.status = 'IN_PROGRESS';
 					}
 					if(!context.attributes.order.products){
 						context.attributes.order.products = [];
@@ -181,7 +195,7 @@ eventHandlers[constants.events.ADD_PRODUCT] = function(){
 			productSearch(this, productName, quantity);
 		}
 	//partial product quantity
-	} else if(!currentProduct.name){
+	} else if(!currentProduct.prodname){
 		//partial product quantity, no product requested
 		if(!productName){
 			this.emit(constants.speeches.QUANTITY_IN_PROGRESS_SPEECH);
@@ -193,7 +207,8 @@ eventHandlers[constants.events.ADD_PRODUCT] = function(){
 					product.quantity = quantity;
 					if(!context.attributes.order){
 						context.attributes.order = {};
-						context.attributes.order.number = uuidHelper.getUUID();
+						context.attributes.order.ordernbr = uuidHelper.getUUID();
+						context.attributes.order.status = 'IN_PROGRESS';
 					}
 					if(!context.attributes.order.products){
 						context.attributes.order.products = [];
@@ -221,7 +236,8 @@ eventHandlers[constants.events.ADD_PRODUCT] = function(){
 			product.quantity = quantity;
 			if(!this.attributes.order){
 				this.attributes.order = {};
-				this.attributes.order.number = uuidHelper.getUUID();
+				this.attributes.order.ordernbr = uuidHelper.getUUID();
+				this.attributes.order.status = 'IN_PROGRESS';
 			}
 			if(!this.attributes.order.products){
 				this.attributes.order.products = [];
@@ -254,8 +270,13 @@ eventHandlers[constants.events.REPEAT_ORDER] = function(){
 		let displayText = '';
 		if(this.attributes.order.products.length <= 3){
 			this.attributes.order.products.forEach(function(product){
-				outputSpeech = outputSpeech + ', ' + product.quantity + ' cases of ' + product.name; 
-				displayText = displayText + product.quantity + ' cases of ' + product.name + '\n';
+				if(product.quantity === 1){
+					outputSpeech = outputSpeech + ', ' + product.quantity + ' case of ' + product.prodname; 
+					displayText = displayText + product.quantity + ' case of ' + product.prodname + '\n';
+				} else {
+					outputSpeech = outputSpeech + ', ' + product.quantity + ' cases of ' + product.prodname; 
+					displayText = displayText + product.quantity + ' cases of ' + product.prodname + '\n';
+				}
 			});
 			outputSpeech = outputSpeech.substring(2);
 			this.attributes.repeatOrderSpeech = outputSpeech;
@@ -272,8 +293,13 @@ eventHandlers[constants.events.REPEAT_ORDER] = function(){
 				finalIndex = this.attributes.order.products.length;
 			}
 			for(i = lastIndex; i < finalIndex; i++){
-				outputSpeech = outputSpeech + ', ' + this.attributes.order.products[i].quantity + ' cases of ' + this.attributes.order.products[i].name;
-				displayText = displayText + this.attributes.order.products[i].quantity + ' cases of ' + this.attributes.order.products[i].name + '\n';
+				if(this.attributes.order.products[i].quantity === 1){
+					outputSpeech = outputSpeech + ', ' + this.attributes.order.products[i].quantity + ' case of ' + this.attributes.order.products[i].prodname;
+					displayText = displayText + this.attributes.order.products[i].quantity + ' case of ' + this.attributes.order.products[i].name + '\n';
+				} else {
+					outputSpeech = outputSpeech + ', ' + this.attributes.order.products[i].quantity + ' cases of ' + this.attributes.order.products[i].prodname;
+					displayText = displayText + this.attributes.order.products[i].quantity + ' cases of ' + this.attributes.order.products[i].name + '\n';
+				}
 			}
 			if(finalIndex >= this.attributes.order.products.length){
 				this.handler.state = undefined;

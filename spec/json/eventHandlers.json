@@ -278,8 +278,7 @@
 		"response": {
 			"handlerType": "speech",
 			"stateHandler":"statelessHandlers",
-			"intent": "noProductsSpeech",
-			"state": null
+			"intent": "noProductsSpeech"
 		}
 	},
 	"testSaveOrderNoProducts": {
@@ -320,7 +319,6 @@
 			"handlerType": "speech",
 			"stateHandler":"statelessHandlers",
 			"intent": "noProductsSpeech",
-			"state": null,
 			"order": {
 				"number": "12345",
 				"products": []
@@ -742,7 +740,6 @@
 			"handlerType": "speech",
 			"stateHandler":"statelessHandlers",
 			"intent": "continueOrderSpeech",
-			"state": null,
 			"order": {
 				"number": "12345",
 				"products": [

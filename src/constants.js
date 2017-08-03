@@ -61,7 +61,7 @@ module.exports = Object.freeze({
 	},
 	
 	speechOutputs: {
-		WELCOME_SPEECH: 'Welcome to <say-as interpret-as="spell-out">us</say-as> foods quick order! Please state the product and quantity you\'d like to order',
+		WELCOME_SPEECH: 'Welcome to food hub quick order! Please state the product and quantity you\'d like to order',
 		REPEAT_ORDER_SPEECH: 'Here is your order so far %s. You can continue adding more products',
 		REPEAT_ORDER_MULTI_SPEECH: 'Here is your order so far %s. Would you like to hear more items on your order?',
 		NO_PRODUCTS_SPEECH: 'You don\'t have any completed products added to your order yet',
@@ -69,10 +69,13 @@ module.exports = Object.freeze({
 		CANCEL_ORDER_SPEECH: 'Would you like to cancel your order? All data will be lost!',
 		CONTINUE_ORDER_SPEECH: 'Please state the product and quantity you\'d like to order',
 		PRODUCT_ADDED_SPEECH: 'I\'ve added %d cases of %s to your order. You can continue adding products or finish the order',
+		PRODUCT_ADDED_SINGLE_SPEECH: 'I\'ve added %d case of %s to your order. You can continue adding products or finish the order',
 		PRODUCT_STARTED_SPEECH: 'I found the product %s. How many cases do you need?',
 		QUANTITY_STARTED_SPEECH: 'You asked for %d cases. What product is this for?',
+		QUANTITY_STARTED_SINGLE_SPEECH: 'You asked for %d case. What product is this for?',
 		PRODUCT_IN_PROGRESS_SPEECH: 'You already started ordering the product %s. How many cases do you want for it?',
 		QUANTITY_IN_PROGRESS_SPEECH: 'You already asked for %d cases but I don\'t know for which product. Which product is it for?',
+		QUANTITY_IN_PROGRESS_SINGLE_SPEECH: 'You already asked for %d case but I don\'t know for which product. Which product is it for?',
 		PRODUCT_NOT_FOUND_SPEECH: 'I\'m sorry, the product you wanted could not be found or is not available at this time. Please order another',
 		HELP_SPEECH: 'Order a product by asking for the product name and quantity. You can hear your order so far by saying. Repeat my order. To finish the order say. Finish my order or complete the order',
 		ORDER_SAVED_SPEECH: 'Thank You! Your order is saved. Please go to your account online to review and submit the order. Goodbye!',
@@ -91,10 +94,13 @@ module.exports = Object.freeze({
 		CANCEL_ORDER_SPEECH: 'Would you like to cancel your order? All data will be lost! Yes or no?',
 		CONTINUE_ORDER_SPEECH: 'Please state the product and quantity you\'d like to order, for example, I need 4 cases of pepperoni',
 		PRODUCT_ADDED_SPEECH: 'I\'ve added %d cases of %s to your order. You can continue adding products or finish the order',
+		PRODUCT_ADDED_SINGLE_SPEECH: 'I\'ve added %d case of %s to your order. You can continue adding products or finish the order',
 		PRODUCT_STARTED_SPEECH: 'I found the product %s. How many cases do you need?',
 		QUANTITY_STARTED_SPEECH: 'You asked for %d cases, but I\'m not sure which product you\'d like. What product is this for?',
+		QUANTITY_STARTED_SINGLE_SPEECH: 'You asked for %d case, but I\'m not sure which product you\'d like. What product is this for?',
 		PRODUCT_IN_PROGRESS_SPEECH: 'You already started ordering the product %s. How many cases do you want for it? Or you can say cancel if you don\t want to order it',
 		QUANTITY_IN_PROGRESS_SPEECH: 'You already asked for %d cases but I don\'t know for which product. Which product is it for? Or you can say cancel if you don\t want to order it',
+		QUANTITY_IN_PROGRESS_SINGLE_SPEECH: 'You already asked for %d case but I don\'t know for which product. Which product is it for? Or you can say cancel if you don\t want to order it',
 		PRODUCT_NOT_FOUND_SPEECH: 'I\'m sorry, the product you wanted could not be found or is not available at this time. Please order another',
 		PRODUCT_REMOVED_SPEECH: 'The product was removed from the order. You can continue adding products or finish the order',
 		HELP_SPEECH: 'Order a product by asking for the product name and quantity. You can hear your order so far by saying. Repeat my order. To finish the order say. Finish my order or complete the order',
@@ -103,11 +109,11 @@ module.exports = Object.freeze({
 	},
 	
 	cardTitles: {
-		WELCOME_CARD: 'Welcome to US Foods\' Quick Order!',
+		WELCOME_CARD: 'Welcome to Food Hub\'s Quick Order!',
 		REPEAT_ORDER: 'Your Order So Far',
 		ORDER_SAVED: 'Your Order is Saved',
 		ORDER_CANCELLED: 'Your Order is Cancelled',
-		PRODUCT_ADDED: 'Product Added',
+		PRODUCT_ADDED: 'Product Added'
 	},
 	
 	cards: {
@@ -117,6 +123,12 @@ module.exports = Object.freeze({
 		PRODUCT_ADDED: '%d cases of %s has been placed on your order'
 	},
 	
-    //  Custom constants
-    terminate: 'TERMINATE',
+	notifications: {
+		SAVE_MESSAGE_SUBJECT: 'Food Hub Quick Order: Your order was saved',
+		SAVE_MESSAGE_SHORT: 'Your Food Hub order was saved by Quick Order. To review and submit visit %s',
+		SAVE_MESSAGE_LONG: `Your Food Hub order was saved from the Quick Order Alexa Skill. To review and submit the order please visit this link %s.
+
+Thank you and have a nice day!`
+
+	}
 });

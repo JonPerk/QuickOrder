@@ -1,9 +1,25 @@
-flour
-pepperoni
-italian sausage
-mozzarella cheese
-green peppers
+apples
+bell peppers
+blueberries
+carrots
+cucumbers
+eggs
+ketchup
+lettuce
+limes
+macroons
+mushrooms
 onions
+roast beef
+salmon
+steak
+strawberries
 tomatoes
-basil
-paprika
+cookies
+butter
+granola
+honey
+hot chocolate
+lemonade
+oranges
+potatoes

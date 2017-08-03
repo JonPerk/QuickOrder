@@ -156,14 +156,23 @@ speechHandlers[constants.speeches.ORDER_CANCELLED_SPEECH] = function(){
 speechHandlers[constants.speeches.PRODUCT_ADDED_SPEECH] = function(){
 	console.log('Speech handler ' + constants.speeches.PRODUCT_ADDED_SPEECH + ' called for ' + this.event.session.sessionId + " context " + JSON.stringify(this));
 	let product = this.attributes.order.products[this.attributes.order.products.length-1]
-	this.attributes.speechOutput = constants.speechOutputs.PRODUCT_ADDED_SPEECH;
-	this.attributes.speechOutput = this.attributes.speechOutput.replace('%s', product.name);
-	this.attributes.speechOutput = this.attributes.speechOutput.replace('%d', product.quantity);
-    this.attributes.repromptSpeech = constants.reprompts.PRODUCT_ADDED_SPEECH;
-    this.attributes.repromptSpeech = this.attributes.repromptSpeech.replace('%s', product.name);
-	this.attributes.repromptSpeech = this.attributes.repromptSpeech.replace('%d', product.quantity);
+	if(product.quantity === 1){
+		this.attributes.speechOutput = constants.speechOutputs.PRODUCT_ADDED_SINGLE_SPEECH;
+		this.attributes.speechOutput = this.attributes.speechOutput.replace('%s', product.prodname);
+		this.attributes.speechOutput = this.attributes.speechOutput.replace('%d', product.quantity);
+	    this.attributes.repromptSpeech = constants.reprompts.PRODUCT_ADDED_SINGLE_SPEECH;
+	    this.attributes.repromptSpeech = this.attributes.repromptSpeech.replace('%s', product.prodname);
+		this.attributes.repromptSpeech = this.attributes.repromptSpeech.replace('%d', product.quantity);
+	} else {
+		this.attributes.speechOutput = constants.speechOutputs.PRODUCT_ADDED_SPEECH;
+		this.attributes.speechOutput = this.attributes.speechOutput.replace('%s', product.prodname);
+		this.attributes.speechOutput = this.attributes.speechOutput.replace('%d', product.quantity);
+	    this.attributes.repromptSpeech = constants.reprompts.PRODUCT_ADDED_SPEECH;
+	    this.attributes.repromptSpeech = this.attributes.repromptSpeech.replace('%s', product.prodname);
+		this.attributes.repromptSpeech = this.attributes.repromptSpeech.replace('%d', product.quantity);
+	}
 	let card = constants.cards.PRODUCT_ADDED;
-    card = card.replace('%s', product.name);
+    card = card.replace('%s', product.prodname);
 	card = card.replace('%d', product.quantity);
     this.emitWithState(
 		':askWithCard',
@@ -178,9 +187,9 @@ speechHandlers[constants.speeches.PRODUCT_ADDED_SPEECH] = function(){
 speechHandlers[constants.speeches.PRODUCT_STARTED_SPEECH] = function(){
 	console.log('Speech handler ' + constants.speeches.PRODUCT_STARTED_SPEECH + ' called for ' + this.event.session.sessionId + " context " + JSON.stringify(this));
 	this.attributes.speechOutput = constants.speechOutputs.PRODUCT_STARTED_SPEECH;
-	this.attributes.speechOutput = this.attributes.speechOutput.replace('%s', this.attributes.currentProduct.name);
+	this.attributes.speechOutput = this.attributes.speechOutput.replace('%s', this.attributes.currentProduct.prodname);
     this.attributes.repromptSpeech = constants.reprompts.PRODUCT_STARTED_SPEECH;
-    this.attributes.repromptSpeech = this.attributes.repromptSpeech.replace('%s', this.attributes.currentProduct.name);
+    this.attributes.repromptSpeech = this.attributes.repromptSpeech.replace('%s', this.attributes.currentProduct.prodname);
     this.emit(
 		':ask',
 		this.attributes.speechOutput,
@@ -191,10 +200,17 @@ speechHandlers[constants.speeches.PRODUCT_STARTED_SPEECH] = function(){
 /** notifies user that quantity was accepted and asks for product */
 speechHandlers[constants.speeches.QUANTITY_STARTED_SPEECH] = function(){
 	console.log('Speech handler ' + constants.speeches.QUANTITY_STARTED_SPEECH + ' called for ' + this.event.session.sessionId + " context " + JSON.stringify(this));
-	this.attributes.speechOutput = constants.speechOutputs.QUANTITY_STARTED_SPEECH;
-	this.attributes.speechOutput = this.attributes.speechOutput.replace('%d', this.attributes.currentProduct.quantity);
-    this.attributes.repromptSpeech = constants.reprompts.QUANTITY_STARTED_SPEECH;
-    this.attributes.repromptSpeech = this.attributes.repromptSpeech.replace('%d', this.attributes.currentProduct.quantity);
+	if(this.attributes.currentProduct.quantity === 1){
+		this.attributes.speechOutput = constants.speechOutputs.QUANTITY_STARTED_SINGLE_SPEECH;
+		this.attributes.speechOutput = this.attributes.speechOutput.replace('%d', this.attributes.currentProduct.quantity);
+	    this.attributes.repromptSpeech = constants.reprompts.QUANTITY_STARTED_SINGLE_SPEECH;
+	    this.attributes.repromptSpeech = this.attributes.repromptSpeech.replace('%d', this.attributes.currentProduct.quantity);
+	} else {
+		this.attributes.speechOutput = constants.speechOutputs.QUANTITY_STARTED_SPEECH;
+		this.attributes.speechOutput = this.attributes.speechOutput.replace('%d', this.attributes.currentProduct.quantity);
+	    this.attributes.repromptSpeech = constants.reprompts.QUANTITY_STARTED_SPEECH;
+	    this.attributes.repromptSpeech = this.attributes.repromptSpeech.replace('%d', this.attributes.currentProduct.quantity);
+	}
     this.emit(
 		':ask',
 		this.attributes.speechOutput,
@@ -206,9 +222,9 @@ speechHandlers[constants.speeches.QUANTITY_STARTED_SPEECH] = function(){
 speechHandlers[constants.speeches.PRODUCT_IN_PROGRESS_SPEECH] = function(){
 	console.log('Speech handler ' + constants.speeches.PRODUCT_IN_PROGRESS_SPEECH + ' called for ' + this.event.session.sessionId + " context " + JSON.stringify(this));
 	this.attributes.speechOutput = constants.speechOutputs.PRODUCT_IN_PROGRESS_SPEECH;
-	this.attributes.speechOutput = this.attributes.speechOutput.replace('%s', this.attributes.currentProduct.name);
+	this.attributes.speechOutput = this.attributes.speechOutput.replace('%s', this.attributes.currentProduct.prodname);
     this.attributes.repromptSpeech = constants.reprompts.PRODUCT_IN_PROGRESS_SPEECH;
-    this.attributes.repromptSpeech = this.attributes.repromptSpeech.replace('%s', this.attributes.currentProduct.name);
+    this.attributes.repromptSpeech = this.attributes.repromptSpeech.replace('%s', this.attributes.currentProduct.prodname);
     this.emit(
 		':ask',
 		this.attributes.speechOutput,
@@ -219,10 +235,17 @@ speechHandlers[constants.speeches.PRODUCT_IN_PROGRESS_SPEECH] = function(){
 /** notifies user that there is already an in progress quantity if they try to set another */
 speechHandlers[constants.speeches.QUANTITY_IN_PROGRESS_SPEECH] = function(){
 	console.log('Speech handler ' + constants.speeches.QUANTITY_IN_PROGRESS_SPEECH + ' called for ' + this.event.session.sessionId + " context " + JSON.stringify(this));
-	this.attributes.speechOutput = constants.speechOutputs.PRODUCT_IN_PROGRESS_SPEECH;
-	this.attributes.speechOutput = this.attributes.speechOutput.replace('%d', this.attributes.currentProduct.quantity);
-    this.attributes.repromptSpeech = constants.reprompts.PRODUCT_IN_PROGRESS_SPEECH;
-    this.attributes.repromptSpeech = this.attributes.repromptSpeech.replace('%d', this.attributes.currentProduct.quantity);
+	if(this.attributes.currentProduct.quantity === 1){
+		this.attributes.speechOutput = constants.speechOutputs.QUANTITY_IN_PROGRESS_SINGLE_SPEECH;
+		this.attributes.speechOutput = this.attributes.speechOutput.replace('%d', this.attributes.currentProduct.quantity);
+	    this.attributes.repromptSpeech = constants.reprompts.QUANTITY_IN_PROGRESS_SINGLE_SPEECH;
+	    this.attributes.repromptSpeech = this.attributes.repromptSpeech.replace('%d', this.attributes.currentProduct.quantity);
+	} else {
+		this.attributes.speechOutput = constants.speechOutputs.QUANTITY_IN_PROGRESS_SPEECH;
+		this.attributes.speechOutput = this.attributes.speechOutput.replace('%d', this.attributes.currentProduct.quantity);
+	    this.attributes.repromptSpeech = constants.reprompts.QUANTITY_IN_PROGRESS_SPEECH;
+	    this.attributes.repromptSpeech = this.attributes.repromptSpeech.replace('%d', this.attributes.currentProduct.quantity);
+	}
     this.emit(
 		':ask',
 		this.attributes.speechOutput,
