@@ -56,7 +56,7 @@ var dbHelper = {
 			        reject(err);
 			    } else {
 			    	console.info("GetItem succeeded:", JSON.stringify(data, null, 2));
-			        resolve(data);
+			        resolve(data.Item);
 			    }
 			});
 		});

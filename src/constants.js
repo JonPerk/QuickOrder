@@ -75,8 +75,8 @@ module.exports = Object.freeze({
 		QUANTITY_IN_PROGRESS_SPEECH: 'You already asked for %d cases but I don\'t know for which product. Which product is it for?',
 		PRODUCT_NOT_FOUND_SPEECH: 'I\'m sorry, the product you wanted could not be found or is not available at this time. Please order another',
 		HELP_SPEECH: 'Order a product by asking for the product name and quantity. You can hear your order so far by saying. Repeat my order. To finish the order say. Finish my order or complete the order',
-		ORDER_SAVED_SPEECH: 'Congratulations! Your order is saved. Please go to your account online to review and submit the order. Goodbye!',
-		ORDER_CANCELLED_SPEECH: 'Your order has been cancelled. Please place another order soon! Goodbye!',
+		ORDER_SAVED_SPEECH: 'Thank You! Your order is saved. Please go to your account online to review and submit the order. Goodbye!',
+		ORDER_CANCELLED_SPEECH: 'Your order has been cancelled. Please place another order soon! Thank you! Goodbye!',
 		PRODUCT_REMOVED_SPEECH: 'The product was removed from the order. You can continue adding products or finish the order',
 		UNHANDLED_SPEECH: 'I\'m sorry I couldn\'t understand that. Please try again',
 		ERROR_SPEECH: 'I had a problem fulfilling your request. Please try it again'

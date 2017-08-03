@@ -72,6 +72,7 @@ intents[constants.intents.YES_INTENT] = function(){
 /** repeat mode handler for no intent. Returns to normal order */
 intents[constants.intents.NO_INTENT] = function(){
 	console.info('Intent handler ' + constants.intents.NO_INTENT + ' for ' + this.event.session.sessionId + ' State: ' + this.handler.state);
+	this.attributes.lastIndex = null;
 	this.emitWithState(constants.events.CONTINUE_ORDER);
 };
 

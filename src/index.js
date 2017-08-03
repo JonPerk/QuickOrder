@@ -33,9 +33,11 @@ exports.handler = function(event, context, callback){
     	eventHandlers.statelessHandlers,
     	eventHandlers.finishModeHandlers,
     	eventHandlers.cancelModeHandlers,
+    	eventHandlers.repeatModeHandlers,
     	speechHandlers.statelessHandlers,
     	speechHandlers.finishModeHandlers,
-    	speechHandlers.cancelModeHandlers
+    	speechHandlers.cancelModeHandlers,
+    	speechHandlers.repeatModeHandlers
     );
     alexa.execute();
 };
