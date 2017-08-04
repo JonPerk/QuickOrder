@@ -295,10 +295,10 @@ eventHandlers[constants.events.REPEAT_ORDER] = function(){
 			for(i = lastIndex; i < finalIndex; i++){
 				if(this.attributes.order.products[i].quantity === 1){
 					outputSpeech = outputSpeech + ', ' + this.attributes.order.products[i].quantity + ' case of ' + this.attributes.order.products[i].prodname;
-					displayText = displayText + this.attributes.order.products[i].quantity + ' case of ' + this.attributes.order.products[i].name + '\n';
+					displayText = displayText + this.attributes.order.products[i].quantity + ' case of ' + this.attributes.order.products[i].prodname + '\n';
 				} else {
 					outputSpeech = outputSpeech + ', ' + this.attributes.order.products[i].quantity + ' cases of ' + this.attributes.order.products[i].prodname;
-					displayText = displayText + this.attributes.order.products[i].quantity + ' cases of ' + this.attributes.order.products[i].name + '\n';
+					displayText = displayText + this.attributes.order.products[i].quantity + ' cases of ' + this.attributes.order.products[i].prodname + '\n';
 				}
 			}
 			if(finalIndex >= this.attributes.order.products.length){
